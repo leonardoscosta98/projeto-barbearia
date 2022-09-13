@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <head>
+            <meta charset="UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+            />
+            <title>Ricardo Barbearia</title>
+            <link rel="icon" type="image/x-icon" href="../static/img/ricardo.png" />
+            <link
+                rel="apple-touch-icon"
+                href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAAA+CAYAAAB5nQYWAAAACXBIWXMAAAsSAAALEgHS3X78AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAArpJREFUeNrsmwtOwzAMhvtHOQETJ4VjwEmncQWjrhvLSvNw7DyaNQgNDWi9L58dN90wOeN0/qTlp/kBt8ft4f9NfOB6bOmg6fL+rXGgQJybYDghtgFEnjP/KAKDBExri9aA8Oc8rr+TgjIekfL0UzQgByytjvl2/iCROVJr/BaB5ZWmQVvHvrx/QWiOVhED26vlBdJUYszHzrFI3ZznoMB0bqkWOcnKSc/UWmSmggMs4BCV+SUtkfR3DyEqwSHPbCPLNkw5Zf6R0ggalppmRtMPuqXGvXqQU0vAMIKUvI2NGCCruT6Fcp8KFVsfEspYMZXNgaBtDJdrEk4Ynr79JoXsMZM4CGl/Qk+wUMwoYgOyGhLf23WNfmRrcc+Li4KAUuI1/JNuryYoNOelatU63i17rOZVExiz0sOIGW/CQEhlVlq99JRSj9vXlj3G18ZPwvLonlQKrl4bAI45+ick4QpXGox7aWHjHQbUTuyCWT+XZgcx6yJEHZNtMTtbz6XZhAAw/g6AAM7jn3M2imqN/1sueqFaH5SegbhjjnMBBKfb1ikJZs9gXEBLzMhKH5+NZu9g4nWJsi9tzXoG9oxFO34zCpgSvZqZBhuakzwcHPW0Giul9Pqnw5zXTCv5pusLmIMDDh8QDjj+NKPXgxO/D44kc+YV/FitivfZu7GG12mbA8zgNacEmCHSqgSY++WUfQUDcoft9QWFbtXUuu9lewOT8rbZnV14khKW9mDc7RurYw2KQ21xC1nxPYEoYllNKOtNvwqrFT/leukvIEupmDXUKkSxNcoFeX0rlpqZpwEmC078sxIlPuDRpjc0+wgW1a3JLMg0BBT1s5+En3zrDUzsfl3HWxbUFAxrekayJvUOb4fm9AEmOZJ61qALKJ2aQ92AqXRt1c4a6btH0EdKoQsYHZvTHsZ6/AowANtAGK16NGm+AAAAAElFTkSuQmCC"
+            />
+            <!-- CSS only -->
+            <link
+                href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+                rel="stylesheet"
+                integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+                crossorigin="anonymous"
+            />
+            <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+            <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        </head>
+    </head>
+    <body>
+        <nav class="custom-navbar d-flex align-items-center" style="height: 120px;">
+            <div class="custom-inline-block" style="margin-left: 4%; margin-right: 26%;">
+                    <a href="/" class="custom-brand"
+                    ><img
+                        src="../../static/img/ricardo.png"
+                        alt="logo da empresa"
+                        style="width: 17rem;"
+
+                /></a> 
+            </div>
+            <div class="custom-inline-block custom-list-menu">
+                <ul>
+                    {% if login == None %}
+                    <li class="custom-nav-item active">
+                        <a class="nav-link" href="/admin" style="color: white;" >Login Administrador</a>
+                    </li>
+                    {% endif %}
+                    {% if login != None %}
+                    <li class="custom-nav-item active">
+                        <a class="nav-link" href="/admin" style="color: white;" >Agenda Admin</a>
+                    </li>
+                    <li class="custom-nav-item">
+                        <a class="nav-link" href="/agenda" onclick="loading()">Agendar</a>
+                    </li>
+                    <li class="custom-nav-item">
+                        <a class="nav-link" href="/logout" onclick="loading()">Logout</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %} 
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show">
+                    <button class="btn-close" data-bs-dismiss="alert"></button>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div
+            id="container-block"
+            class="container mt-5"
+            style="margin-bottom: 8rem"
+        >
+            {% block content %}{% endblock %}
+        </div>
+        <div
+            id="loading-spinner"
+            style="height: 20rem"
+            class="container mt-5 d-none"
+        >
+            <div
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+            ></div>                        
+        </div>
+        <footer
+            style="
+                background-color: #000000;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            "
+        >
+            <div class="container" style="color: white; padding: 1rem">
+                <a style="color: white"
+                    >Barbearia do Ricardo</a
+                >
+            </div>
+        </footer>
+    </body>
+    <style>
+        .masthead {
+        padding-bottom: 1rem;
+        color: #fff;
+        background-image: url("../static/img/barbearia_2.jpg");
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-position: center center;
+        background-size: cover;
+        }
+
+        .masthead-heading {
+        font-size: 3.25rem;
+        /* color: #ffc800; */
+        font-weight: 700;
+        line-height: 3.25rem;
+        margin-bottom: 2rem;
+        font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+
+        .masthead-subheading {
+        font-size: 1.5rem;
+        font-style: italic;
+        /* color: #ffc800; */
+        line-height: 1.5rem;
+        margin-bottom: 25px;
+        font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+
+        .custom-brand {
+            margin-left: 2.3622050220101rem;
+        }
+        .custom-navbar {
+            height: 6rem;
+            background-color: #000000;
+        }
+        .custom-inline-block {
+            display: inline-block;
+        }
+        .custom-nav-item {
+            display: inline-block;
+            color: white;
+            margin: 1rem;
+        }
+        .custom-list-menu {
+            margin-left: 16.53rem;
+        }
+    </style>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <!-- JavaScript Bundle with Popper -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"
+    ></script>
+    <script>
+        function loading() {
+            const element = document.getElementById("loading-spinner");
+            const block = document.getElementById("container-block");
+            element.classList.remove("d-none");
+            block.classList.add("d-none");
+        }
+    </script>
+</html>

@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title %}Início{% endblock %} {% block
+content %}
+<div>
+    <div class="row">
+        <div class="col"><h4>Agenda do dia {{datatable}}</h4></div>
+        <form  class="col" action="/admin" method="post">
+            <div class="row">
+                <div class="col"> <input type="date" name="search" value="{{filtro}}"> </div>
+                <div class="col"><button type="submit" class="btn btn-success">Buscar </button></div>
+            </div>
+        </form>
+    </div>
+    <hr />
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Horário</th>  
+                <th scope="col">Nome</th>
+                <th scope="col">Celular</th>
+                <th scope="col">Serviço</th> 
+            </tr>
+            </thead>
+            <tbody>
+         
+            {% for disponibilidade in disponibilidades %}
+            <tr>
+                <td>{{datatable}}</td>
+                <td>{{disponibilidade.disponibilidade}}</td>
+                <td>{{disponibilidade.name}}</td>
+                <td>{{disponibilidade.celular}}</td>
+                <td>{{disponibilidade.servico}}</td>
+            </tr>        
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

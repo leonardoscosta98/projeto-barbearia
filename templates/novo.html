@@ -1,0 +1,217 @@
+{% extends "base.html" %} {% block title %}Início{% endblock %} {% block
+  content %}
+  <div class="row">
+    <div class="col">
+        <h4>
+            <a href="/agenda" onclick="loading()" style="text-decoration: none; color: black"
+                ><i class="fa-solid fa-circle-arrow-left"></i
+            ></a>
+            Reservar Horário {{dia}}({{datatable}}) às {{horario}} h
+        </h4>
+    </div>
+  </div>
+  <form action="/confirmacao/{{datatable}}/{{horario}}" method="post">
+    <fieldset>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="nome"><strong>Nome</strong></label>
+            <input type="text" id="nome" name="nome" class="form-control">
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            <label for="nome"><strong>Celular</strong></label>
+            <input type="text" id="celular" name="celular" class="form-control">
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="categoria"><strong>Serviços</strong></label>
+          <div class="row">
+            <div class="col">
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Corte navalhado R$ 25,00" id="flexCheckChecked" name="1">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Corte navalhado R$ 25,00
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Corte tesoura R$ 20,00" id="flexCheckDefault" name="2">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Corte tesoura R$ 20,00
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Corte máq. e tesoura R$ 18,00" id="flexCheckChecked" name="2">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Corte máq. e tesoura R$ 18,00
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Corte a máquina R$ 15,00" id="flexCheckChecked" name="3">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Corte a máquina R$ 15,00
+                </label>
+              </div>
+            </div>
+
+            <div class="col">
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Alisamento de cabelo R$ 10,00" id="flexCheckChecked" name="4">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Alisamento de cabelo R$ 10,00
+                </label>
+              </div>
+    
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Pintura de Cabelo R$ 25,00" id="flexCheckChecked" name="5">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Pintura de Cabelo R$ 25,00
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Corte a máquina R$ 15,00" id="flexCheckChecked" name="6">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Pé de cabelo R$ 5,00
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Alisamento de cabelo R$ 10,00" id="flexCheckChecked" name="7">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Reflexo R$ 25,00
+                </label>
+              </div>
+
+            </div>
+
+            <div class="col">
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Barba R$ 10,00" id="flexCheckChecked" name="8">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Barba R$ 10,00
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Marcar Barba R$ 5,00" id="flexCheckChecked" name="9">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Marcar Barba R$ 5,00
+                </label>
+              </div>
+    
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Pintura Barba R$ 5,00" id="flexCheckChecked" name="10">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Pintura Barba R$ 5,00
+                </label>
+              </div>
+    
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Sombrancelha M R$ 2,00" id="flexCheckChecked" name="11">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Sombrancelha M R$ 2,00
+                </label>
+              </div>
+
+            </div>
+
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Sombrancelha F R$ 10,00" id="flexCheckChecked" name="12">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Sombrancelha F R$ 10,00
+                </label>
+              </div>
+            </div>
+
+          </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="console"> <strong>Observação</strong></label>
+        <input type="text" id="observacao" name="observacao" class="form-control">
+      </div>
+      <br>
+      <button type="button" 
+              class="btn btn-success"
+              data-bs-toggle="modal"
+              data-bs-target="#modalRemoveBase">Salvar</button>
+    </fieldset>
+  <!-- Modal remove base -->
+  <div
+  class="modal fade"
+  id="modalRemoveBase"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalRemoveBaseLabel"
+  aria-hidden="true"
+  value=""
+  >
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="modalRemoveBaseLabel">
+                  Pagamento antecipado - (Opcional)
+              </h5>
+              <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+              ></button>
+          </div>
+                  <div class="modal-footer">
+                      <div class="modal-body">
+                          <p>
+                              <!-- Ao confirmar a operação, todos os dados do cliente serão
+                              removidos. -->
+                              <strong>Após pagamento, compartilhe o comprovante através do WhatsApp: (21) 98519-1812</strong
+                              >
+                              <br>
+                              <div style="width: auto; margin-left: 15%;">
+                                <a class="custom-brand"
+                                ><img
+                                    src="../../static/img/pix_leonardo.png"
+                                    alt="logo da empresa"
+                                    style="width: 17rem;"
+
+                              /></a> 
+
+                              </div>
+                            
+                          </p>
+                      </div>
+                      <button
+                      type="button"
+                      class="btn btn-dark"
+                      data-bs-dismiss="modal"
+                      >
+                          C A N C E L A R
+                      </button>
+                      <button
+                      type="submit"
+                      class="btn btn-success"
+                      >
+                          C O N F I R M A R
+                      </button>  
+              </div>
+      </div>
+  </div>
+  </div>
+
+
+  </form>
+  {% endblock %}
+  

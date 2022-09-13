@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %}Início{% endblock %} {% block
+    content %}
+    <div>
+        <div class="row">
+            <div class="col"><h4>Agenda de Horários</h4></div>
+            <form  class="col" action="/agenda" method="post">
+                <div class="row">
+                    <div class="col"> <input type="date" name="search" value="{{filtro}}"> </div>
+                    <div class="col"><button type="submit" class="btn btn-success">Buscar </button></div>
+                </div>
+            </form>
+        </div>
+        <hr />
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Ordem</th> 
+                    <th scope="col">Data</th> 
+                    <th scope="col">Dia da Semana</th> 
+                    <th scope="col">Horário</th> 
+                    <th scope="col">Disponibilidade</th> 
+                    <th scope="col"></th> 
+                </tr>
+                </thead>
+                <tbody>
+                {% if dia != 'Domingo' %}
+                    {% for disponibilidade in disponibilidades %}
+                    <tr>
+                        <td>{{disponibilidade.id}}</td>
+                        <td>{{datatable}}</td>
+                        <td>{{dia}}</td>
+                        <td>{{disponibilidade.horarios}}</td>
+                        
+                        <th style=" {% if disponibilidade.status == 'Indisponível' %} color: red;{% endif %}">
+                        {{disponibilidade.status}}
+                        </th>
+                        {% if disponibilidade.status == 'Indisponível' %}
+                        <th style="color: red;">Indisponível</th>
+                        {% else %}
+                            <td>
+                                <form action="/agendamento/{{filtro}}/{{disponibilidade.horarios}}" method="post">
+                                    <button type="submit" class="btn btn-success">Agendar</button>
+                                </form>
+                            </td>
+                        {% endif %}
+                    </tr>        
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}
