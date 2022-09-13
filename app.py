@@ -229,16 +229,20 @@ def login():
 
 @app.route('/autenticar', methods=['POST', ])
 def autenticar():
-    if request.form['usuario'] in usuarios:
-        usuario = usuarios[request.form['usuario']]
-        if request.form['senha'] == usuario.senha:
-            session['usuario_logado'] = usuario.nickname
-            flash('Bem vindo, ' + usuario.nickname+'!')
-            proxima_pagina = request.form['proxima']
-            return redirect(proxima_pagina)
-    else:
-        flash('Usuário não logado.')
-        return redirect(url_for('login'))
+		if request.form['usuario'] in usuarios:
+			usuario = usuarios[request.form['usuario']]
+		else:
+			flash('Usuário não logado.')
+			return redirect(url_for('login'))
+
+		if request.form['senha'] == usuario.senha:
+			session['usuario_logado'] = usuario.nickname
+			flash('Bem vindo, ' + usuario.nickname+'!')
+			proxima_pagina = request.form['proxima']
+			return redirect(proxima_pagina)
+		else:
+			flash('Usuário não logado.')
+			return redirect(url_for('login'))
 
 @app.route('/logout')
 def logout():

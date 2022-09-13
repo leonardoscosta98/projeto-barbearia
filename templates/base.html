@@ -26,10 +26,24 @@
         </head>
     </head>
     <body>
-        <nav class="custom-navbar" style="width: auto;">
-            <div class="row">
+        <nav class="custom-navbar" >
+            <div class="row" style="
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                width: 100%;
+            ">
+
+                <div class="col" >
+                    <a href="/"
+                    ><img
+                        src="../../static/img/ricardo.png"
+                        alt=""
+                        style="width: 15rem;"
+                /></a> 
+                </div>
                 <div  class="col">
-                    <ul> 
+                   
                         {% if login == None %}
                             <a class="nav-link"  href="/admin" style="color: white;" onclick="loading()" >Login Administrador</a>  
                         {% endif %}
@@ -38,15 +52,6 @@
                             <a class="nav-link"  href="/agenda" style="color: white;" onclick="loading()">Agendar</a>
                             <a class="nav-link"  href="/logout" style="color: white;" onclick="loading()">Logout</a>
                         {% endif %}
-                    </ul>
-                </div>
-                <div class="col">
-                    <a href="/"
-                    ><img
-                        src="../../static/img/ricardo.png"
-                        alt="logo da empresa"
-                        style="width: 15rem;"
-                /></a> 
                 </div>
             </div>
         </nav>
