@@ -26,35 +26,30 @@
         </head>
     </head>
     <body>
-        <nav class="custom-navbar d-flex align-items-center" style="height: auto;">
-            <div class="custom-inline-block">
+        <nav class="custom-navbar align-items-center">
+            <div class="row">
+
+                <div class="col" style="margin-left: 1rem;">
                     <a href="/" class="custom-brand"
                     ><img
                         src="../../static/img/ricardo.png"
                         alt="logo da empresa"
-                        style="width: 17rem;"
+                        style="width: 15rem;"
 
                 /></a> 
-            </div>
-            <div class="custom-inline-block custom-list-menu">
-                <ul>
-                    {% if login == None %}
-                    <li class="custom-nav-item active">
-                        <a class="nav-link" href="/admin" style="color: white;" >Login Administrador</a>
-                    </li>
-                    {% endif %}
-                    {% if login != None %}
-                    <li class="custom-nav-item active">
-                        <a class="nav-link" href="/admin" style="color: white;" >Agenda Admin</a>
-                    </li>
-                    <li class="custom-nav-item">
-                        <a class="nav-link" href="/agenda" onclick="loading()">Agendar</a>
-                    </li>
-                    <li class="custom-nav-item">
-                        <a class="nav-link" href="/logout" onclick="loading()">Logout</a>
-                    </li>
-                    {% endif %}
-                </ul>
+                </div>
+                <div  class="col" style="margin-top: 1.5rem;">
+                    <ul> 
+                        {% if login == None %}
+                            <a class="nav-link"  href="/admin" style="color: white;" onclick="loading()" >Login Administrador</a>  
+                        {% endif %}
+                        {% if login != None %}
+                            <a class="nav-link"  href="/admin" style="color: white;" onclick="loading()" >Agenda Admin</a>
+                            <a class="nav-link"  href="/agenda" style="color: white;" onclick="loading()">Agendar</a>
+                            <a class="nav-link"  href="/logout" style="color: white;" onclick="loading()">Logout</a>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </nav>
         {% with messages = get_flashed_messages() %}
@@ -105,10 +100,9 @@
         padding-bottom: 1rem;
         color: #fff;
         background-image: url("../static/img/barbearia_2.jpg");
-        background-repeat: no-repeat;
         background-attachment: scroll;
         background-position: center center;
-        background-size: cover;
+        background-size: 100%;
         }
 
         .masthead-heading {
@@ -133,7 +127,7 @@
             margin-left: 2.3622050220101rem;
         }
         .custom-navbar {
-            height: auto;
+            height: 7.5rem;
             background-color: #000000;
         }
         .custom-inline-block {
@@ -145,7 +139,7 @@
             margin: 1rem;
         }
         .custom-list-menu {
-            margin-left: 16.53rem;
+            margin-left: 15.53rem;
         }
     </style>
     <link
