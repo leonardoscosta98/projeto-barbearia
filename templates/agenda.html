@@ -14,10 +14,9 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Ordem</th> 
+                    <th scope="col">Horário</th> 
                     <th scope="col">Data</th> 
                     <th scope="col">Dia da Semana</th> 
-                    <th scope="col">Horário</th> 
                     <th scope="col">Disponibilidade</th> 
                     <th scope="col"></th> 
                 </tr>
@@ -26,11 +25,9 @@
                 {% if dia != 'Domingo' %}
                     {% for disponibilidade in disponibilidades %}
                     <tr>
-                        <td>{{disponibilidade.id}}</td>
+                        <td>{{disponibilidade.id}} - {{disponibilidade.horarios}}</td>
                         <td>{{datatable}}</td>
-                        <td>{{dia}}</td>
-                        <td>{{disponibilidade.horarios}}</td>
-                        
+                        <td>{{dia}}</td>                        
                         <th style=" {% if disponibilidade.status == 'Indisponível' %} color: red;{% endif %}">
                         {{disponibilidade.status}}
                         </th>
