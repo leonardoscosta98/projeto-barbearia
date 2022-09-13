@@ -4,6 +4,9 @@ from flask import request
 from datetime import datetime
 from utils import retornaDiaSemana, formataDisponibilidade, verificandoDisponibilidade, retornaTabela, formataDisponibilidadeSexta, verificandoDisponibilidadeSexta, formataDisponibilidadeSabado, verificandoDisponibilidadeSexta
 
+app = Flask(__name__)
+app.secret_key = 'barbearia'
+
 class Usuario:
     def __init__(self, nome, nickname, senha):
         self.nome = nome 
@@ -13,9 +16,6 @@ class Usuario:
 usuario = Usuario('Leonardo Costa', 'Leo', '123')    
 
 usuarios = {usuario.nickname : usuario}
-
-app = Flask(__name__)
-app.secret_key = 'barbearia'
 
 @app.route("/")
 def index():
@@ -63,7 +63,7 @@ def agenda():
 
 	disponivel = execQuery("""
 		select 
-		count(seis_am) as seis,
+		count(seis) as seis,
 		count(sete) as sete,
 		count(oito) as oito,
 		count(nove) as nove,
@@ -107,56 +107,82 @@ def confirmacao(datatable,horario):
 
 	
 	try:
-		if horario == '07:00':
+		if horario == '06:00':
 			gravar = execQuery("""
-					INSERT INTO public.agendamento(
+						INSERT INTO agendamento(
+						data,disponibilidade, seis, name, celular, servico, observacao)
+						VALUES ('{}','06:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+		elif horario == '07:00':
+			gravar = execQuery("""
+					INSERT INTO agendamento(
 					data, disponibilidade, sete, name, celular, servico, observacao)
-					VALUES ('{}', '07:00', true, '{}','{}','{}','{}');""".format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+					VALUES ('{}', '07:00', 1, '{}','{}','{}','{}');""".format(datatable,nome, celular, servicos, observacao), onlyExec=True)
 		elif horario == '08:00':
 			gravar = execQuery("""
-					INSERT INTO public.agendamento(
+					INSERT INTO agendamento(
 					data,disponibilidade, oito, name, celular, servico, observacao)
-					VALUES ('{}','08:00', true, '{}','{}','{}','{}');""".format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+					VALUES ('{}','08:00', 1, '{}','{}','{}','{}');""".format(datatable,nome, celular, servicos, observacao), onlyExec=True)
 		elif horario == '09:00':
 			gravar =execQuery("""
-					INSERT INTO public.agendamento(
+					INSERT INTO agendamento(
 					data,disponibilidade, nove, name, celular, servico, observacao)
-					VALUES ('{}','09:00', true, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+					VALUES ('{}','09:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
 		elif horario == '10:00':
 			gravar =execQuery("""
-					INSERT INTO public.agendamento(
+					INSERT INTO agendamento(
 					data,disponibilidade, dez, name, celular, servico, observacao)
-					VALUES ('{}','10:00', true, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+					VALUES ('{}','10:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
 		elif horario == '11:00':
 			gravar =execQuery("""
-					INSERT INTO public.agendamento(
+					INSERT INTO agendamento(
 					data,disponibilidade, onze, name, celular, servico, observacao)
-					VALUES ('{}','11:00', true, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+					VALUES ('{}','11:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
 		elif horario == '14:00':
 			gravar =execQuery("""
-					INSERT INTO public.agendamento(
+					INSERT INTO agendamento(
 					data,disponibilidade, quatorze, name, celular, servico, observacao)
-					VALUES ('{}','14:00', true, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+					VALUES ('{}','14:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
 		elif horario == '15:00':
 			gravar =execQuery("""
-					INSERT INTO public.agendamento(
+					INSERT INTO agendamento(
 					data,disponibilidade, quinze, name, celular, servico, observacao)
-					VALUES ('{}','15:00', true, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+					VALUES ('{}','15:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
 		elif horario == '16:00':
 			gravar =execQuery("""
-					INSERT INTO public.agendamento(
+					INSERT INTO agendamento(
 					data,disponibilidade, dezesseis, name, celular, servico, observacao)
-					VALUES ('{}','16:00', true, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+					VALUES ('{}','16:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
 		elif horario == '17:00':
 			gravar = execQuery("""
-						INSERT INTO public.agendamento(
+						INSERT INTO agendamento(
 						data,disponibilidade, dezessete, name, celular, servico, observacao)
-						VALUES ('{}','17:00', true, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+						VALUES ('{}','17:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
 		elif horario == '18:00':
 			gravar = execQuery("""
-						INSERT INTO public.agendamento(
+						INSERT INTO agendamento(
 						data,disponibilidade, dezoito, name, celular, servico, observacao)
-						VALUES ('{}','18:00', true, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+						VALUES ('{}','18:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+		elif horario == '19:00':
+			gravar = execQuery("""
+						INSERT INTO agendamento(
+						data,disponibilidade, dezenove, name, celular, servico, observacao)
+						VALUES ('{}','19:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+		elif horario == '20:00':
+			gravar = execQuery("""
+						INSERT INTO agendamento(
+						data,disponibilidade, vinte, name, celular, servico, observacao)
+						VALUES ('{}','20:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+		elif horario == '21:00':
+			gravar = execQuery("""
+						INSERT INTO agendamento(
+						data,disponibilidade, vinte_um, name, celular, servico, observacao)
+						VALUES ('{}','21:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+		elif horario == '22:00':
+			gravar = execQuery("""
+						INSERT INTO agendamento(
+						data,disponibilidade, vinte_dois, name, celular, servico, observacao)
+						VALUES ('{}','22:00', 1, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+
 	except:
 		flash('Falha ao reservar horário, tente novamente!')
 		return redirect(url_for('agenda'))
@@ -220,6 +246,16 @@ def logout():
     flash('Logout realizado com sucesso!')
 
     return redirect(url_for('index'))
+
+@app.route('/delete/<id>',methods=['POST', ])
+def delete(id):
+
+	if 'usuario_logado' not in session or session['usuario_logado'] == None:
+		return redirect(url_for('login', proxima=url_for('admin')))
+    
+	execQuery("""delete from agendamento where id = {} """.format(id),onlyExec=True) 
+	
+	return redirect(url_for('admin'))
 
 # if __name__ == "__main__":
 app.run(debug=True)

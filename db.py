@@ -1,4 +1,4 @@
-import psycopg2
+import sqlite3
 
 import click
 from flask import g, current_app
@@ -10,13 +10,7 @@ def get_db():
     again.
     """
     if "db" not in g:   
-      g.db = psycopg2.connect(
-                  port=5432,
-                  host='ec2-107-23-76-12.compute-1.amazonaws.com',
-                  database='dcq3cn5n4vgn05',
-                  user='igkmpohwxwomhs',
-                  password='d6b449745dea8899a0459357dfeb6f825455091d877a59965cd85478fbc0baf8'
-            )
+      g.db = sqlite3.connect('barbeariaSQLite.db')
 
     return g.db
 
@@ -63,23 +57,25 @@ def dictfetchall(cursor):
 
 def execQuery(sql, first=False, onlyExec=False):
     db = get_db()
-    with db.cursor() as cursor: 
-        try:
-            cursor.execute(sql)
-        except:
-            cursor.execute("rollback")
-            cursor.execute(sql)
-    
-        if onlyExec == True:
-            db.commit()
-            return None
 
-        row = dictfetchall(cursor)
+    cursor = db.cursor()
 
-        if first == True:
-            if len(row) > 0:
-                row = row[0]
-            elif len(row) == 0:
-                row = None
+    try:
+        cursor.execute(sql)
+    except:
+        cursor.execute("rollback")
+        cursor.execute(sql)
 
-        return row
+    if onlyExec == True:
+        db.commit()
+        return None
+
+    row = dictfetchall(cursor)
+
+    if first == True:
+        if len(row) > 0:
+            row = row[0]
+        elif len(row) == 0:
+            row = None
+
+    return row

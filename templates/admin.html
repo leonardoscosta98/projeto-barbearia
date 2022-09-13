@@ -19,6 +19,8 @@ content %}
                 <th scope="col">Nome</th>
                 <th scope="col">Celular</th>
                 <th scope="col">Serviço</th> 
+                <th scope="col">Obs</th> 
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -30,6 +32,12 @@ content %}
                 <td>{{disponibilidade.name}}</td>
                 <td>{{disponibilidade.celular}}</td>
                 <td>{{disponibilidade.servico}}</td>
+                <td>{{disponibilidade.observacao}}</td>
+                <td>
+                    <form action="/delete/{{disponibilidade.id}}" method="post">
+                        <button type="submit" class="btn btn-danger">Deletar</button>
+                    </form>
+                </td>
             </tr>        
             {% endfor %}
         </tbody>
