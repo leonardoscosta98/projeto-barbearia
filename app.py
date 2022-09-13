@@ -19,14 +19,12 @@ app.secret_key = 'barbearia'
 
 @app.route("/")
 def index():
-
 	try:
 		login = session['usuario_logado']
 		return render_template("index.html", login = login)
 	except:
 		session['usuario_logado'] = None
 		return render_template("index.html", login = session['usuario_logado'])
-
 	
 
 
@@ -80,7 +78,7 @@ def agenda():
 		count(vinte) as vinte,
 		count(vinte_um) as vinte_um,
 		count(vinte_dois) as vinte_dois
-		from agendamento where data = '{}' """.format(datatable))
+		from agendamento where data = '{}' """.format(search))
 	
 	if from_tabela not in ['sexta_sexta','sabado_sabado']:
 		disponibilidade = verificandoDisponibilidade(agenda,formataDisponibilidade(disponivel[0]))
@@ -188,7 +186,7 @@ def admin():
 	disponibilidade = execQuery("""
 		select 
 		*
-		from agendamento where data = '{}' order by disponibilidade """.format(datatable))
+		from agendamento where data = '{}' order by disponibilidade """.format(search))
 
 	return render_template("admin.html", disponibilidades=disponibilidade, filtro=search, datatable=datatable, dia=dia_da_semana, login = session['usuario_logado'])
 
