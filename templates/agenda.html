@@ -18,7 +18,6 @@
                     <th scope="col">Data</th> 
                     <th scope="col">Dia da Semana</th> 
                     <th scope="col">Disponibilidade</th> 
-                    <th scope="col"></th> 
                 </tr>
                 </thead>
                 <tbody>
@@ -28,17 +27,16 @@
                         <td>{{disponibilidade.id}} - {{disponibilidade.horarios}}</td>
                         <td>{{datatable}}</td>
                         <td>{{dia}}</td>                        
-                        <th style=" {% if disponibilidade.status == 'Indisponível' %} color: red;{% endif %}">
-                        {{disponibilidade.status}}
-                        </th>
                         {% if disponibilidade.status == 'Indisponível' %}
-                        <th style="color: red;">Indisponível</th>
+                            <th style="color: red;">
+                            {{disponibilidade.status}}
+                            </th>
                         {% else %}
-                            <td>
-                                <form action="/agendamento/{{filtro}}/{{disponibilidade.horarios}}" method="post">
-                                    <button type="submit" class="btn btn-success">Agendar</button>
-                                </form>
-                            </td>
+                        <td>
+                            <form action="/agendamento/{{filtro}}/{{disponibilidade.horarios}}" method="post">
+                                <button type="submit" class="btn btn-success">Agendar</button>
+                            </form>
+                        </td>
                         {% endif %}
                     </tr>        
                     {% endfor %}
