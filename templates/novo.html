@@ -179,16 +179,22 @@
                               removidos. -->
                               <strong>Após pagamento, compartilhe o comprovante através do WhatsApp: (21) 98519-1812</strong
                               >
-                              <br>
                               <div style="width: auto; margin-left: 15%;">
                                 <a class="custom-brand"
                                 ><img
-                                    src="../../static/img/pix_ricardo.jpeg"
-                                    alt="logo da empresa"
-                                    style="width: 17rem;"
-
+                                    src="../../static/img/pix_ricardo.jpg"
+                                    alt=""
+                                    style="width: 17rem;
+                                          margin-right: 5rem;"
+                                    
                               /></a> 
 
+                              <div class="input-group mb-3">
+                                <input type="text" name="texto" id="texto" value="00020126330014br.gov.bcb.pix0111117926357025204000053039865802BR5925RICARDO FERREIRA DA SILVA6004MAGE62070503***630400A6" class="form-control" readonly>
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary" type="button" onclick="copiarTexto()">Copiar</button>
+                                </div>
+                              </div>
                               </div>
                             
                           </p>
@@ -213,5 +219,14 @@
 
 
   </form>
+
+  <script>
+    function copiarTexto() {
+        let textoCopiado = document.getElementById("texto");
+        textoCopiado.select();
+        textoCopiado.setSelectionRange(0, 99999)
+        document.execCommand("copy");
+    }
+  </script>
   {% endblock %}
   
