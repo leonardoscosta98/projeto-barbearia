@@ -12,10 +12,10 @@ def get_db():
     if "db" not in g:   
       g.db = psycopg2.connect(
                   port=5432,
-                  host='ec2-44-193-178-122.compute-1.amazonaws.com',
-                  database='d4aj93bmc9lc86',
-                  user='xtovtbsiqlzhxn',
-                  password='4dba616192b60af529bbeac82113cc2bd5dae8a7b8c670544ef4f45a6a1becbd'
+                  host='ec2-44-207-133-100.compute-1.amazonaws.com',
+                  database='d9u6ptvvgb86su',
+                  user='vnwwannczjibqo',
+                  password='b5ab30e863abb37c8408bf85ea9e21aa17c0a292f4bc25573360abcde3b4d34b'
             )
 
     return g.db
