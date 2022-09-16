@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, flash, session
 from db import execQuery
 from flask import request
+import pytz
 from datetime import datetime
 from utils import retornaDiaSemana, formataDisponibilidade, verificandoDisponibilidade, retornaTabela, formataDisponibilidadeSexta, verificandoDisponibilidadeSexta, formataDisponibilidadeSabado, verificandoDisponibilidadeSexta
 
@@ -31,18 +32,28 @@ def index():
 @app.route("/agenda", methods=["POST", "GET"])
 def agenda():
 	
-	dia_atual = datetime.today().strftime('%Y-%m-%d')
+	Brasil             = pytz.timezone('America/Sao_Paulo')
+	dia_atual 		   = datetime.today()
+	data_formatada_tz  = dia_atual.replace(tzinfo=pytz.UTC)
+	data_formatada_br  = data_formatada_tz.astimezone(Brasil)
+	dia_atual 		   = data_formatada_br.strftime('%Y-%m-%d')
+
 	search = request.form.get("search","")
 	if search != '':
-		datatable = datetime.strptime(search, '%Y-%m-%d').strftime("%d-%m-%Y")
+		data_formatada_tz  = search.replace(tzinfo=pytz.UTC)
+		data_formatada_br  = data_formatada_tz.astimezone(Brasil)
+		search= data_formatada_br.strftime('%Y-%m-%d')
+		datatable = data_formatada_br.strftime("%d-%m-%Y")
 		dia_da_semana = retornaDiaSemana(search)
 	else:
-		search= datetime.today().strftime('%Y-%m-%d')
+		search= datetime.today()
+		data_formatada_tz  = search.replace(tzinfo=pytz.UTC)
+		data_formatada_br  = data_formatada_tz.astimezone(Brasil)
+		search= data_formatada_br.strftime('%Y-%m-%d')
 		dia_da_semana = retornaDiaSemana(search)
-		datatable= datetime.today().strftime('%d-%m-%Y')
-		
-	from_tabela = retornaTabela(search)
+		datatable= data_formatada_br.strftime('%d-%m-%Y')
 
+	from_tabela = retornaTabela(search)
 
 	if search < dia_atual:	
 		flash('Data indisponível'.format(search))
