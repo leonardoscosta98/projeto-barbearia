@@ -209,15 +209,26 @@ def admin():
 	if 'usuario_logado' not in session or session['usuario_logado'] == None:
 		return redirect(url_for('login', proxima=url_for('admin')))
 
-	dia_atual = datetime.today().strftime('%Y-%m-%d')
+	Brasil             = pytz.timezone('America/Sao_Paulo')
+	dia_atual 		   = datetime.today()
+	data_formatada_tz  = dia_atual.replace(tzinfo=pytz.UTC)
+	data_formatada_br  = data_formatada_tz.astimezone(Brasil)
+	dia_atual 		   = data_formatada_br.strftime('%Y-%m-%d')
 	search = request.form.get("search","")
+	
 	if search != '':
-		datatable = datetime.strptime(search, '%Y-%m-%d').strftime("%d-%m-%Y")
+		data_formatada_tz  = search.replace(tzinfo=pytz.UTC)
+		data_formatada_br  = data_formatada_tz.astimezone(Brasil)
+		search= data_formatada_br.strftime('%Y-%m-%d')
+		datatable = data_formatada_br.strftime("%d-%m-%Y")
 		dia_da_semana = retornaDiaSemana(search)
 	else:
-		search= datetime.today().strftime('%Y-%m-%d')
+		search= datetime.today()
+		data_formatada_tz  = search.replace(tzinfo=pytz.UTC)
+		data_formatada_br  = data_formatada_tz.astimezone(Brasil)
+		search= data_formatada_br.strftime('%Y-%m-%d')
 		dia_da_semana = retornaDiaSemana(search)
-		datatable= datetime.today().strftime('%d-%m-%Y')
+		datatable= data_formatada_br.strftime('%d-%m-%Y')
 		
 
 	disponibilidade = execQuery("""
