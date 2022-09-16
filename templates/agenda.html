@@ -24,7 +24,7 @@
                 {% if dia != 'Domingo' %}
                     {% for disponibilidade in disponibilidades %}
                     <tr>
-                        <td style="color: red;">{{disponibilidade.id}} - {{disponibilidade.horarios}}</td>
+                        <td>{{disponibilidade.id}} - {{disponibilidade.horarios}}</td>
                         <td>{{datatable}}</td>
                         <td>{{dia}}</td>                        
                         {% if disponibilidade.status == 'Indisponível' %}
