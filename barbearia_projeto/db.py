@@ -1,3 +1,4 @@
+import psycopg
 import psycopg2
 import click
 from flask import g
@@ -9,14 +10,17 @@ def get_db():
     is unique for each request and will be reused if this is called
     again.
     """
-    if "db" not in g:   
-      g.db = psycopg2.connect(
-                  port=5432,
-                  host=environ.get('DATABASE_HOST'),
-                  database=environ.get('DATABASE_NAME'),
-                  user=environ.get('DATABASE_USER'),
-                  password=environ.get('DATABASE_PASSWORD')
-            )
+    pg_url = environ.get('DATABASE_URL')
+
+    if "db" not in g:
+        dados = psycopg.conninfo.conninfo_to_dict(pg_url)   
+        g.db  = psycopg2.connect(
+                    port=5432,
+                    host=dados.get('host'),
+                    database=dados.get('dbname'),
+                    user=dados.get('user'),
+                    password=dados.get('password')
+                 )
 
     return g.db
 
