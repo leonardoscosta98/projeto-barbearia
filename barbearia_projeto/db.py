@@ -1,23 +1,24 @@
 import psycopg2
 import click
-from flask import g, current_app
+from flask import g
+from os import environ
 from flask.cli import with_appcontext
 
 def get_db():
     """Connect to the application's configured database. The connection
     is unique for each request and will be reused if this is called
     again.
-    
     """
-    g = psycopg2.connect(
+    if "db" not in g:   
+      g.db = psycopg2.connect(
                   port=5432,
-                  host=current_app.config["DATABASE_HOST"],
-                  database=current_app.config["DATABASE_NAME"],
-                  user=current_app.config["DATABASE_USER"],
-                  password=current_app.config["DATABASE_PASSWORD"]
+                  host=environ.get('DATABASE_HOST'),
+                  database=environ.get('DATABASE_NAME'),
+                  user=environ.get('DATABASE_USER'),
+                  password=environ.get('DATABASE_PASSWORD')
             )
 
-    return g
+    return g.db
 
 
 def close_db(e=None):
