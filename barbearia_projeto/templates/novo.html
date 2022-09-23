@@ -3,14 +3,14 @@
   <div class="row">
     <div class="col">
         <h4>
-            <a href="/barbearia/agenda" onclick="loading()" style="text-decoration: none; color: black"
+            <a href="/agenda" onclick="loading()" style="text-decoration: none; color: black"
                 ><i class="fa-solid fa-circle-arrow-left"></i
             ></a>
             Reservar Horário {{dia}}({{datatable}}) às {{horario}} h
         </h4>
     </div>
   </div>
-  <form action="/barbearia/confirmacao/{{datatable}}/{{horario}}" method="post">
+  <form action="/confirmacao/{{datatable}}/{{horario}}" method="post">
     <fieldset>
       <div class="row">
         <div class="col">
@@ -148,7 +148,7 @@
               data-bs-toggle="modal"
               data-bs-target="#modalRemoveBase">Salvar</button>
     </fieldset>
-  <!-- Modal remove base -->
+  <!-- Modal Confimação -->
   <div
   class="modal fade"
   id="modalRemoveBase"
@@ -175,14 +175,12 @@
                   <div class="modal-footer">
                       <div class="modal-body">
                           <p>
-                              <!-- Ao confirmar a operação, todos os dados do cliente serão
-                              removidos. -->
                               <div style="width: auto; margin-left: 15%;">
                                 <strong>Compartilhe o comprovante através do WhatsApp: (21) 98519-1812</strong
                                   >
                                 <a class="custom-brand"
                                 ><img
-                                    src="../static/img/pix_ricardo.jpg"
+                                    src="../../static/img/pix_ricardo.jpg"
                                     alt=""
                                     style="width: 17rem;
                                           margin-right: 5rem;"

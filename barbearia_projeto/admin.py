@@ -6,7 +6,16 @@ import pytz
 from datetime import datetime
 from .utils import retornaDiaSemana, formataDisponibilidade, verificandoDisponibilidade, retornaTabela, formataDisponibilidadeSexta, verificandoDisponibilidadeSexta, formataDisponibilidadeSabado, verificandoDisponibilidadeSexta
 
-bp = Blueprint("admin", __name__, url_prefix="/barbearia")
+bp = Blueprint("admin", __name__)
+
+@bp.route("/")
+def index():
+	try:
+		login = session['usuario_logado']
+		return render_template("index.html", login = login)
+	except:
+		session['usuario_logado'] = None
+		return render_template("index.html", login = session['usuario_logado'])
 
 @bp.route("/agenda", methods=["POST", "GET"])
 def agenda():
@@ -235,7 +244,7 @@ def logout():
     session['usuario_logado'] = None
     flash('Logout realizado com sucesso!')
 
-    return redirect(url_for('main.index'))
+    return redirect(url_for('admin.index'))
 
 @bp.route('/delete/<id>',methods=['POST', ])
 def delete(id):
