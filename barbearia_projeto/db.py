@@ -7,9 +7,9 @@ def get_db():
     """Connect to the application's configured database. The connection
     is unique for each request and will be reused if this is called
     again.
+    
     """
-    if "db" not in g:   
-      g.db = psycopg2.connect(
+    g = psycopg2.connect(
                   port=5432,
                   host=current_app.config["DATABASE_HOST"],
                   database=current_app.config["DATABASE_NAME"],
@@ -17,7 +17,7 @@ def get_db():
                   password=current_app.config["DATABASE_PASSWORD"]
             )
 
-    return g.db
+    return g
 
 
 def close_db(e=None):

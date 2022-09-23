@@ -12,16 +12,16 @@ def create_app(test_config=None):
     app.config['DATABASE_PASSWORD'] = environ.get('DATABASE_PASSWORD')
 
     # register the database commands
-    # from barbearia_projeto import db
+    from barbearia_projeto import db
 
-    # db.init_app(app)
+    db.init_app(app)
 
     from barbearia_projeto import main, admin
 
     app.register_blueprint(main.bp)
     app.register_blueprint(admin.bp)
 
-    # app.add_url_rule("/", endpoint="index")
+    app.add_url_rule("/", endpoint="index")
    
    
     return app
