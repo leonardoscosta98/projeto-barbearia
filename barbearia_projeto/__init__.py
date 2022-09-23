@@ -1,18 +1,16 @@
 from flask import Flask
-from decouple import config
+from os import environ
 
 def create_app(test_config=None):   
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__)
-    app.config.from_mapping(
-        SECRET_KEY=config("SECRET_KEY"),
-        # store the database in the instance folder        
-        DATABASE_HOST=config("DATABASE_HOST"),
-        DATABASE_NAME=config("DATABASE_NAME"),
-        DATABASE_USER=config("DATABASE_USER"),
-        DATABASE_PASSWORD=config("DATABASE_PASSWORD"),    
-    )
 
+    app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
+    app.config['DATABASE_HOST'] = environ.get('DATABASE_HOST')
+    app.config['DATABASE_NAME'] = environ.get('DATABASE_NAME')
+    app.config['DATABASE_USER'] = environ.get('DATABASE_USER')
+    app.config['DATABASE_PASSWORD'] = environ.get('DATABASE_PASSWORD')
+    
     # register the database commands
     from barbearia_projeto import db
 
