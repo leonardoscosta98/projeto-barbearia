@@ -1,5 +1,4 @@
 import psycopg2
-
 import click
 from flask import g, current_app
 from flask.cli import with_appcontext
@@ -12,10 +11,10 @@ def get_db():
     if "db" not in g:   
       g.db = psycopg2.connect(
                   port=5432,
-                  host='ec2-44-209-158-64.compute-1.amazonaws.com',
-                  database='db6uu50e5n8j80',
-                  user='wooeplpvfubztq',
-                  password='16a3ed5289764ffe83cfb6d722d0814a18abfca116e8a1c816598ccf24754665'
+                  host=current_app.config["DATABASE_HOST"],
+                  database=current_app.config["DATABASE_NAME"],
+                  user=current_app.config["DATABASE_USER"],
+                  password=current_app.config["DATABASE_PASSWORD"]
             )
 
     return g.db

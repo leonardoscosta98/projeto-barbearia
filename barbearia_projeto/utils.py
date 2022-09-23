@@ -34,52 +34,52 @@ def retornaTabela(dataDia):
 
 def formataDisponibilidade(dict):
 	
-	if dict.get('sete') == 1:
+	if dict.get('sete') != 0:
 		dict.update({'sete':'Indisponível'})
 	else:
 		dict.update({'sete':'Disponível'})
 	
-	if dict.get('oito') == 1:
+	if dict.get('oito') != 0:
 		dict.update({'oito':'Indisponível'})
 	else:
 		dict.update({'oito':'Disponível'})
 	
-	if dict.get('nove') == 1:
+	if dict.get('nove') != 0:
 		dict.update({'nove':'Indisponível'})
 	else:
 		dict.update({'nove':'Disponível'})
 	
-	if dict.get('dez') == 1:
+	if dict.get('dez') != 0:
 		dict.update({'dez':'Indisponível'})
 	else:
 		dict.update({'dez':'Disponível'})
 	
-	if dict.get('onze') == 1:
+	if dict.get('onze') != 0:
 		dict.update({'onze':'Indisponível'})
 	else:
 		dict.update({'onze':'Disponível'})
 	
-	if dict.get('quatorze') == 1:
+	if dict.get('quatorze') != 0:
 		dict.update({'quatorze':'Indisponível'})
 	else:
 		dict.update({'quatorze':'Disponível'})
 	
-	if dict.get('quinze') == 1:
+	if dict.get('quinze') != 0:
 		dict.update({'quinze':'Indisponível'})
 	else:
 		dict.update({'quinze':'Disponível'})
 	
-	if dict.get('dezesseis') == 1:
+	if dict.get('dezesseis') != 0:
 		dict.update({'dezesseis':'Indisponível'})
 	else:
 		dict.update({'dezesseis':'Disponível'})
 	
-	if dict.get('dezessete') == 1:
+	if dict.get('dezessete') != 0:
 		dict.update({'dezessete':'Indisponível'})
 	else:
 		dict.update({'dezessete':'Disponível'})
 	
-	if dict.get('dezoito') == 1:
+	if dict.get('dezoito') != 0:
 		dict.update({'dezoito':'Indisponível'})
 	else:
 		dict.update({'dezoito':'Disponível'})
@@ -88,77 +88,77 @@ def formataDisponibilidade(dict):
 
 def formataDisponibilidadeSexta(dict):
 	
-	if dict.get('seis') == 1:
+	if dict.get('seis') != 0:
 		dict.update({'seis':'Indisponível'})
 	else:
 		dict.update({'seis':'Disponível'})
 
-	if dict.get('sete') == 1:
+	if dict.get('sete') != 0:
 		dict.update({'sete':'Indisponível'})
 	else:
 		dict.update({'sete':'Disponível'})
 	
-	if dict.get('oito') == 1:
+	if dict.get('oito') != 0:
 		dict.update({'oito':'Indisponível'})
 	else:
 		dict.update({'oito':'Disponível'})
 	
-	if dict.get('nove') == 1:
+	if dict.get('nove') != 0:
 		dict.update({'nove':'Indisponível'})
 	else:
 		dict.update({'nove':'Disponível'})
 	
-	if dict.get('dez') == 1:
+	if dict.get('dez') != 0:
 		dict.update({'dez':'Indisponível'})
 	else:
 		dict.update({'dez':'Disponível'})
 	
-	if dict.get('onze') == 1:
+	if dict.get('onze') != 0:
 		dict.update({'onze':'Indisponível'})
 	else:
 		dict.update({'onze':'Disponível'})
 	
-	if dict.get('quatorze') == 1:
+	if dict.get('quatorze') != 0:
 		dict.update({'quatorze':'Indisponível'})
 	else:
 		dict.update({'quatorze':'Disponível'})
 	
-	if dict.get('quinze') == 1:
+	if dict.get('quinze') != 0:
 		dict.update({'quinze':'Indisponível'})
 	else:
 		dict.update({'quinze':'Disponível'})
 	
-	if dict.get('dezesseis') == 1:
+	if dict.get('dezesseis') != 0:
 		dict.update({'dezesseis':'Indisponível'})
 	else:
 		dict.update({'dezesseis':'Disponível'})
 	
-	if dict.get('dezessete') == 1:
+	if dict.get('dezessete') != 0:
 		dict.update({'dezessete':'Indisponível'})
 	else:
 		dict.update({'dezessete':'Disponível'})
 	
-	if dict.get('dezoito') == 1:
+	if dict.get('dezoito') != 0:
 		dict.update({'dezoito':'Indisponível'})
 	else:
 		dict.update({'dezoito':'Disponível'})
 	
-	if dict.get('dezenove') == 1:
+	if dict.get('dezenove') != 0:
 		dict.update({'dezenove':'Indisponível'})
 	else:
 		dict.update({'dezenove':'Disponível'})
 	
-	if dict.get('vinte') == 1:
+	if dict.get('vinte') != 0:
 		dict.update({'vinte':'Indisponível'})
 	else:
 		dict.update({'vinte':'Disponível'})
 	
-	if dict.get('vinte_um') == 1:
+	if dict.get('vinte_um') != 0:
 		dict.update({'vinte_um':'Indisponível'})
 	else:
 		dict.update({'vinte_um':'Disponível'})
 	
-	if dict.get('vinte_dois') == 1:
+	if dict.get('vinte_dois') != 0:
 		dict.update({'vinte_dois':'Indisponível'})
 	else:
 		dict.update({'vinte_dois':'Disponível'})
@@ -167,57 +167,57 @@ def formataDisponibilidadeSexta(dict):
 
 def formataDisponibilidadeSabado(dict):
 	
-	if dict.get('seis') == 1:
+	if dict.get('seis') != 0:
 		dict.update({'seis':'Indisponível'})
 	else:
 		dict.update({'seis':'Disponível'})
 
-	if dict.get('sete') == 1:
+	if dict.get('sete') != 0:
 		dict.update({'sete':'Indisponível'})
 	else:
 		dict.update({'sete':'Disponível'})
 	
-	if dict.get('oito') == 1:
+	if dict.get('oito') != 0:
 		dict.update({'oito':'Indisponível'})
 	else:
 		dict.update({'oito':'Disponível'})
 	
-	if dict.get('nove') == 1:
+	if dict.get('nove') != 0:
 		dict.update({'nove':'Indisponível'})
 	else:
 		dict.update({'nove':'Disponível'})
 	
-	if dict.get('dez') == 1:
+	if dict.get('dez') != 0:
 		dict.update({'dez':'Indisponível'})
 	else:
 		dict.update({'dez':'Disponível'})
 	
-	if dict.get('onze') == 1:
+	if dict.get('onze') != 0:
 		dict.update({'onze':'Indisponível'})
 	else:
 		dict.update({'onze':'Disponível'})
 	
-	if dict.get('quatorze') == 1:
+	if dict.get('quatorze') != 0:
 		dict.update({'quatorze':'Indisponível'})
 	else:
 		dict.update({'quatorze':'Disponível'})
 	
-	if dict.get('quinze') == 1:
+	if dict.get('quinze') != 0:
 		dict.update({'quinze':'Indisponível'})
 	else:
 		dict.update({'quinze':'Disponível'})
 	
-	if dict.get('dezesseis') == 1:
+	if dict.get('dezesseis') != 0:
 		dict.update({'dezesseis':'Indisponível'})
 	else:
 		dict.update({'dezesseis':'Disponível'})
 	
-	if dict.get('dezessete') == 1:
+	if dict.get('dezessete') != 0:
 		dict.update({'dezessete':'Indisponível'})
 	else:
 		dict.update({'dezessete':'Disponível'})
 	
-	if dict.get('dezoito') == 1:
+	if dict.get('dezoito') != 0:
 		dict.update({'dezoito':'Indisponível'})
 	else:
 		dict.update({'dezoito':'Disponível'})

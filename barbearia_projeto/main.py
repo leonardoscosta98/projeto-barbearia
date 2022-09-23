@@ -1,12 +1,12 @@
 from flask import Flask, render_template, redirect, url_for, flash, session
-from db import execQuery
+from .db import execQuery
+from flask import Blueprint
 from flask import request
 import pytz
 from datetime import datetime
-from utils import retornaDiaSemana, formataDisponibilidade, verificandoDisponibilidade, retornaTabela, formataDisponibilidadeSexta, verificandoDisponibilidadeSexta, formataDisponibilidadeSabado, verificandoDisponibilidadeSexta
+from .utils import retornaDiaSemana, formataDisponibilidade, verificandoDisponibilidade, retornaTabela, formataDisponibilidadeSexta, verificandoDisponibilidadeSexta, formataDisponibilidadeSabado, verificandoDisponibilidadeSexta
 
-app = Flask(__name__)
-app.secret_key = 'barbearia'
+bp = Blueprint("main", __name__)
 
 class Usuario:
     def __init__(self, nome, nickname, senha):
@@ -18,7 +18,7 @@ usuario = Usuario('Ricardo', 'Ricardo', 'ricardobarbeiro2022')
 
 usuarios = {usuario.nickname : usuario}
 
-@app.route("/")
+@bp.route("/")
 def index():
 	try:
 		login = session['usuario_logado']
@@ -29,7 +29,7 @@ def index():
 	
 
 
-@app.route("/agenda", methods=["POST", "GET"])
+@bp.route("/agenda", methods=["POST", "GET"])
 def agenda():
 	
 	Brasil             = pytz.timezone('America/Sao_Paulo')
@@ -40,16 +40,10 @@ def agenda():
 
 	search = request.form.get("search","")
 	if search != '':
-		data_formatada_tz  = search.replace(tzinfo=pytz.UTC)
-		data_formatada_br  = data_formatada_tz.astimezone(Brasil)
-		search= data_formatada_br.strftime('%Y-%m-%d')
-		datatable = data_formatada_br.strftime("%d-%m-%Y")
+		datatable = datetime.strptime(search, '%Y-%m-%d').strftime("%d-%m-%Y")
 		dia_da_semana = retornaDiaSemana(search)
 	else:
-		search= datetime.today()
-		data_formatada_tz  = search.replace(tzinfo=pytz.UTC)
-		data_formatada_br  = data_formatada_tz.astimezone(Brasil)
-		search= data_formatada_br.strftime('%Y-%m-%d')
+		search= dia_atual
 		dia_da_semana = retornaDiaSemana(search)
 		datatable= data_formatada_br.strftime('%d-%m-%Y')
 
@@ -101,14 +95,14 @@ def agenda():
 	
 	return render_template("agenda.html", disponibilidades=disponibilidade, filtro=search, datatable=datatable, dia=dia_da_semana, login = session['usuario_logado'])
 
-@app.route("/agendamento/<datatable>/<horario>", methods=["POST", "GET"])
+@bp.route("/agendamento/<datatable>/<horario>", methods=["POST", "GET"])
 def agendamento(datatable,horario):	
 
 	dia_da_semana = retornaDiaSemana(datatable)
 
 	return render_template("novo.html", datatable=datatable, horario=horario, dia= dia_da_semana, login = session['usuario_logado'])
 
-@app.route("/confirmacao/<datatable>/<horario>", methods=["POST", "GET"])
+@bp.route("/confirmacao/<datatable>/<horario>", methods=["POST", "GET"])
 def confirmacao(datatable,horario):	
 
 	nome = request.form.get("nome","")
@@ -196,18 +190,18 @@ def confirmacao(datatable,horario):
 
 	except:
 		flash('Falha ao reservar horário, tente novamente!')
-		return redirect(url_for('agenda'))
+		return redirect(url_for('main.agenda'))
 
 
 	flash('Horário reservado com sucesso!')
-	return redirect(url_for('agenda'))
+	return redirect(url_for('main.agenda'))
 
 
-@app.route("/admin", methods=["POST", "GET"])
+@bp.route("/admin", methods=["POST", "GET"])
 def admin():	
 
 	if 'usuario_logado' not in session or session['usuario_logado'] == None:
-		return redirect(url_for('login', proxima=url_for('admin')))
+		return redirect(url_for('main.login'))
 
 	Brasil             = pytz.timezone('America/Sao_Paulo')
 	dia_atual 		   = datetime.today()
@@ -217,16 +211,10 @@ def admin():
 	search = request.form.get("search","")
 	
 	if search != '':
-		data_formatada_tz  = search.replace(tzinfo=pytz.UTC)
-		data_formatada_br  = data_formatada_tz.astimezone(Brasil)
-		search= data_formatada_br.strftime('%Y-%m-%d')
-		datatable = data_formatada_br.strftime("%d-%m-%Y")
+		datatable = datetime.strptime(search, '%Y-%m-%d').strftime("%d-%m-%Y")
 		dia_da_semana = retornaDiaSemana(search)
 	else:
-		search= datetime.today()
-		data_formatada_tz  = search.replace(tzinfo=pytz.UTC)
-		data_formatada_br  = data_formatada_tz.astimezone(Brasil)
-		search= data_formatada_br.strftime('%Y-%m-%d')
+		search= dia_atual
 		dia_da_semana = retornaDiaSemana(search)
 		datatable= data_formatada_br.strftime('%d-%m-%Y')
 		
@@ -239,23 +227,20 @@ def admin():
 	return render_template("admin.html", disponibilidades=disponibilidade, filtro=search, datatable=datatable, dia=dia_da_semana, login = session['usuario_logado'])
 
 
-@app.route('/login')
+@bp.route('/login')
 def login():
-    proxima = url_for('admin')
-
-    if request.args.get('proxima') != None:
-        proxima = request.args.get('proxima')
+    proxima = url_for('main.admin')
     
     return render_template('login.html', proxima=proxima, login = session['usuario_logado'])
 
 
-@app.route('/autenticar', methods=['POST', ])
+@bp.route('/autenticar', methods=['POST', ])
 def autenticar():
 		if request.form['usuario'] in usuarios:
 			usuario = usuarios[request.form['usuario']]
 		else:
 			flash('Usuário não logado.')
-			return redirect(url_for('login'))
+			return redirect(url_for('main.login'))
 
 		if request.form['senha'] == usuario.senha:
 			session['usuario_logado'] = usuario.nickname
@@ -264,24 +249,24 @@ def autenticar():
 			return redirect(proxima_pagina)
 		else:
 			flash('Usuário não logado.')
-			return redirect(url_for('login'))
+			return redirect(url_for('main.login'))
 
-@app.route('/logout')
+@bp.route('/logout')
 def logout():
     session['usuario_logado'] = None
     flash('Logout realizado com sucesso!')
 
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))
 
-@app.route('/delete/<id>',methods=['POST', ])
+@bp.route('/delete/<id>',methods=['POST', ])
 def delete(id):
 
 	if 'usuario_logado' not in session or session['usuario_logado'] == None:
-		return redirect(url_for('login', proxima=url_for('admin')))
+		return redirect(url_for('main.login', proxima=url_for('main.admin')))
     
 	execQuery("""delete from agendamento where id = {} """.format(id),onlyExec=True) 
 	
-	return redirect(url_for('admin'))
+	return redirect(url_for('main.admin'))
 
-if __name__ == "__main__":
-	app.run(debug=False)
+# if __name__ == "__main__":
+# 	app.run(debug=False)
