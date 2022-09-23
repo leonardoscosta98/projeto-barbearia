@@ -2,8 +2,7 @@ from flask import Flask
 from decouple import config
 from flask_talisman import Talisman
 
-
-app = Flask(__name__, instance_relative_config=True)
+app = Flask(__name__)
 Talisman(app, content_security_policy=None)
 app.config.from_mapping(
     SECRET_KEY=config("SECRET_KEY"),
