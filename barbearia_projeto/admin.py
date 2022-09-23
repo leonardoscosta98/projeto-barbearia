@@ -8,16 +8,6 @@ from .utils import retornaDiaSemana, formataDisponibilidade, verificandoDisponib
 
 bp = Blueprint("admin", __name__, url_prefix="/barbearia")
 
-class Usuario:
-    def __init__(self, nome, nickname, senha):
-        self.nome = nome 
-        self.nickname = nickname
-        self.senha = senha
-
-usuario = Usuario('Ricardo', 'Ricardo', 'ricardobarbeiro2022')    
-
-usuarios = {usuario.nickname : usuario}
-
 @bp.route("/agenda", methods=["POST", "GET"])
 def agenda():
 	
@@ -225,20 +215,20 @@ def login():
 
 @bp.route('/autenticar', methods=['POST', ])
 def autenticar():
-		if request.form['usuario'] in usuarios:
-			usuario = usuarios[request.form['usuario']]
-		else:
+
+		usuario_usuario = execQuery("""
+		select 
+		*
+		from usuarios_usuarios where login = '{}' and pass = '{}' """.format(request.form['usuario'], request.form['senha']))
+
+		if usuario_usuario == []:
 			flash('Usuário não logado.')
 			return redirect(url_for('admin.login'))
 
-		if request.form['senha'] == usuario.senha:
-			session['usuario_logado'] = usuario.nickname
-			flash('Bem vindo, ' + usuario.nickname+'!')
-			proxima_pagina = request.form['proxima']
-			return redirect(proxima_pagina)
-		else:
-			flash('Usuário não logado.')
-			return redirect(url_for('admin.login'))
+		session['usuario_logado'] = usuario_usuario[0].get('login')
+		flash('Bem vindo, ' + usuario_usuario[0].get('login')+'!')
+		proxima_pagina = request.form['proxima']
+		return redirect(proxima_pagina)
 
 @bp.route('/logout')
 def logout():
