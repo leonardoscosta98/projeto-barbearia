@@ -267,6 +267,3 @@ def delete(id):
 	execQuery("""delete from agendamento where id = {} """.format(id),onlyExec=True) 
 	
 	return redirect(url_for('main.admin'))
-
-# if __name__ == "__main__":
-# 	app.run(debug=False)
