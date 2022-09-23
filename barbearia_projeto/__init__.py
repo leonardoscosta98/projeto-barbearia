@@ -10,11 +10,11 @@ def create_app(test_config=None):
     app.config['DATABASE_NAME'] = environ.get('DATABASE_NAME')
     app.config['DATABASE_USER'] = environ.get('DATABASE_USER')
     app.config['DATABASE_PASSWORD'] = environ.get('DATABASE_PASSWORD')
-    
-    # register the database commands
-    from barbearia_projeto import db
 
-    db.init_app(app)
+    # register the database commands
+    # from barbearia_projeto import db
+
+    # db.init_app(app)
 
     from barbearia_projeto import main
 
