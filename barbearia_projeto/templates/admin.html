@@ -3,7 +3,7 @@ content %}
 <div>
     <div class="row">
         <div class="col"><h4>Agenda do dia {{datatable}}</h4></div>
-        <form  class="col" action="/admin" method="post">
+        <form  class="col" action="/barbearia/admin" method="post">
             <div class="row" style="margin-right: 8rem;">
                 <div class="col"> <input type="date" name="search" value="{{filtro}}"> </div>
                 <div class="col"><button type="submit" class="btn btn-success">Buscar </button></div>
@@ -34,7 +34,7 @@ content %}
                 <td>{{disponibilidade.servico}}</td>
                 <td>{{disponibilidade.observacao}}</td>
                 <td>
-                    <form action="/delete/{{disponibilidade.id}}" method="post">
+                    <form action="/barbearia/delete/{{disponibilidade.id}}" method="post">
                         <button type="submit" class="btn btn-danger">Deletar</button>
                     </form>
                 </td>

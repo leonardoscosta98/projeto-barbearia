@@ -16,9 +16,10 @@ def create_app(test_config=None):
 
     # db.init_app(app)
 
-    from barbearia_projeto import main
+    from barbearia_projeto import main, admin
 
     app.register_blueprint(main.bp)
+    app.register_blueprint(admin.bp)
 
     app.add_url_rule("/", endpoint="index")
    
