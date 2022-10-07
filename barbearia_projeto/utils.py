@@ -59,6 +59,11 @@ def formataDisponibilidade(dict):
 	else:
 		dict.update({'onze':'Disponível'})
 	
+	if dict.get('treze') != 0:
+		dict.update({'treze':'Indisponível'})
+	else:
+		dict.update({'treze':'Disponível'})
+	
 	if dict.get('quatorze') != 0:
 		dict.update({'quatorze':'Indisponível'})
 	else:
@@ -78,11 +83,7 @@ def formataDisponibilidade(dict):
 		dict.update({'dezessete':'Indisponível'})
 	else:
 		dict.update({'dezessete':'Disponível'})
-	
-	if dict.get('dezoito') != 0:
-		dict.update({'dezoito':'Indisponível'})
-	else:
-		dict.update({'dezoito':'Disponível'})
+
 
 	return dict
 
@@ -117,6 +118,11 @@ def formataDisponibilidadeSexta(dict):
 		dict.update({'onze':'Indisponível'})
 	else:
 		dict.update({'onze':'Disponível'})
+	
+	if dict.get('treze') != 0:
+		dict.update({'treze':'Indisponível'})
+	else:
+		dict.update({'treze':'Disponível'})
 	
 	if dict.get('quatorze') != 0:
 		dict.update({'quatorze':'Indisponível'})
@@ -158,10 +164,6 @@ def formataDisponibilidadeSexta(dict):
 	else:
 		dict.update({'vinte_um':'Disponível'})
 	
-	if dict.get('vinte_dois') != 0:
-		dict.update({'vinte_dois':'Indisponível'})
-	else:
-		dict.update({'vinte_dois':'Disponível'})
 
 	return dict
 
@@ -197,6 +199,11 @@ def formataDisponibilidadeSabado(dict):
 	else:
 		dict.update({'onze':'Disponível'})
 	
+	if dict.get('treze') != 0:
+		dict.update({'treze':'Indisponível'})
+	else:
+		dict.update({'treze':'Disponível'})
+	
 	if dict.get('quatorze') != 0:
 		dict.update({'quatorze':'Indisponível'})
 	else:
@@ -216,11 +223,6 @@ def formataDisponibilidadeSabado(dict):
 		dict.update({'dezessete':'Indisponível'})
 	else:
 		dict.update({'dezessete':'Disponível'})
-	
-	if dict.get('dezoito') != 0:
-		dict.update({'dezoito':'Indisponível'})
-	else:
-		dict.update({'dezoito':'Disponível'})
 
 	return dict
 
@@ -238,15 +240,15 @@ def verificandoDisponibilidade(agenda,newDict):
 		elif x == 4:
 			agenda[x]['status'] = newDict.get('onze')
 		elif x == 5:
-			agenda[x]['status'] = newDict.get('quatorze')
+			agenda[x]['status'] = newDict.get('treze')
 		elif x == 6:
-			agenda[x]['status'] = newDict.get('quinze')
+			agenda[x]['status'] = newDict.get('quatorze')
 		elif x == 7:
-			agenda[x]['status'] = newDict.get('dezesseis')
+			agenda[x]['status'] = newDict.get('quinze')
 		elif x == 8:
-			agenda[x]['status'] = newDict.get('dezessete')
+			agenda[x]['status'] = newDict.get('dezesseis')
 		elif x == 9:
-			agenda[x]['status'] = newDict.get('dezoito')
+			agenda[x]['status'] = newDict.get('dezessete')
 
 
 	return agenda
@@ -267,24 +269,23 @@ def verificandoDisponibilidadeSexta(agenda,newDict):
 		elif x == 5:
 			agenda[x]['status'] = newDict.get('onze')
 		elif x == 6:
-			agenda[x]['status'] = newDict.get('quatorze')
+			agenda[x]['status'] = newDict.get('treze')
 		elif x == 7:
-			agenda[x]['status'] = newDict.get('quinze')
+			agenda[x]['status'] = newDict.get('quatorze')
 		elif x == 8:
-			agenda[x]['status'] = newDict.get('dezesseis')
+			agenda[x]['status'] = newDict.get('quinze')
 		elif x == 9:
-			agenda[x]['status'] = newDict.get('dezessete')
+			agenda[x]['status'] = newDict.get('dezesseis')
 		elif x == 10:
-			agenda[x]['status'] = newDict.get('dezoito')
+			agenda[x]['status'] = newDict.get('dezessete')
 		elif x == 11:
-			agenda[x]['status'] = newDict.get('dezenove')
+			agenda[x]['status'] = newDict.get('dezoito')
 		elif x == 12:
-			agenda[x]['status'] = newDict.get('vinte')
+			agenda[x]['status'] = newDict.get('dezenove')
 		elif x == 13:
-			agenda[x]['status'] = newDict.get('vinte_um')
+			agenda[x]['status'] = newDict.get('vinte')
 		elif x == 14:
-			agenda[x]['status'] = newDict.get('vinte_dois')
-
+			agenda[x]['status'] = newDict.get('vinte_um')
 
 	return agenda
 
@@ -292,25 +293,27 @@ def verificandoDisponibilidadeSabado(agenda,newDict):
 	
 	for x in range(len(agenda)):
 		if x == 0:
+			agenda[x]['status'] = newDict.get('seis')
+		if x == 1:
 			agenda[x]['status'] = newDict.get('sete')
-		elif x == 1:
-			agenda[x]['status'] = newDict.get('oito')
 		elif x == 2:
-			agenda[x]['status'] = newDict.get('nove')
+			agenda[x]['status'] = newDict.get('oito')
 		elif x == 3:
-			agenda[x]['status'] = newDict.get('dez')
+			agenda[x]['status'] = newDict.get('nove')
 		elif x == 4:
-			agenda[x]['status'] = newDict.get('onze')
+			agenda[x]['status'] = newDict.get('dez')
 		elif x == 5:
-			agenda[x]['status'] = newDict.get('quatorze')
+			agenda[x]['status'] = newDict.get('onze')
 		elif x == 6:
-			agenda[x]['status'] = newDict.get('quinze')
+			agenda[x]['status'] = newDict.get('treze')
 		elif x == 7:
-			agenda[x]['status'] = newDict.get('dezesseis')
+			agenda[x]['status'] = newDict.get('quatorze')
 		elif x == 8:
-			agenda[x]['status'] = newDict.get('dezessete')
+			agenda[x]['status'] = newDict.get('quinze')
 		elif x == 9:
-			agenda[x]['status'] = newDict.get('dezoito')
+			agenda[x]['status'] = newDict.get('dezesseis')
+		elif x == 10:
+			agenda[x]['status'] = newDict.get('dezessete')
 
 
 	return agenda

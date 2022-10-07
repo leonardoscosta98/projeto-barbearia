@@ -8,7 +8,7 @@ def create_app(test_config=None):
     app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
     
     # register the database commands
-    from barbearia_projeto import db
+    # from barbearia_projeto import db
 
     # db.init_app(app)
 

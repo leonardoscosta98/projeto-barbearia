@@ -62,6 +62,7 @@ def agenda():
 		count(nove) as nove,
 		count(dez) as dez,
 		count(onze) as onze,
+		count(treze) as treze,
 		count(quatorze) as quatorze,
 		count(quinze) as quinze,
 		count(dezesseis) as dezesseis,
@@ -130,6 +131,11 @@ def confirmacao(datatable,horario):
 					INSERT INTO public.agendamento(
 					data,disponibilidade, onze, name, celular, servico, observacao)
 					VALUES ('{}','11:00', true, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
+		elif horario == '13:00':
+			gravar =execQuery("""
+					INSERT INTO public.agendamento(
+					data,disponibilidade, treze, name, celular, servico, observacao)
+					VALUES ('{}','13:00', true, '{}','{}','{}','{}'); """.format(datatable,nome, celular, servicos, observacao), onlyExec=True)
 		elif horario == '14:00':
 			gravar =execQuery("""
 					INSERT INTO public.agendamento(
