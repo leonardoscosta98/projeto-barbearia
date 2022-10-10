@@ -10,7 +10,7 @@
         </h4>
     </div>
   </div>
-  <form action="/confirmacao/{{datatable}}/{{horario}}" method="post">
+  <form action="/confirmacao/{{datatable}}/{{horario}}" method="post" id="FormDefault">
     <fieldset>
       <div class="row">
         <div class="col">
@@ -22,8 +22,8 @@
 
         <div class="col">
           <div class="form-group">
-            <label for="nome" ><strong>Celular</strong></label>
-            <input type="text" id="celular" name="celular" class="form-control" required>
+            <label for="nome" ><strong>Celular</strong> Ex.: (21) 98519-1812</label>
+            <input type="text" id="celular" name="celular" class="form-control" placeholder="Digite um número do WhatsApp" maxlength="15"  required>
           </div>
         </div>
       </div>
@@ -34,28 +34,28 @@
             <div class="col">
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Corte navalhado R$ 25,00" id="flexCheckChecked" name="1">
+                <input class="form-check-input" type="checkbox" value="25.00 Corte navalhado" id="CorteNavalhado" name="CorteNavalhado">
                 <label class="form-check-label" for="flexCheckChecked">
                   Corte navalhado R$ 25,00
                 </label>
               </div>
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Corte tesoura R$ 20,00" id="flexCheckDefault" name="2">
+                <input class="form-check-input" type="checkbox" value="20.00 Corte tesoura" id="CorteTesoura" name="CorteTesoura">
                 <label class="form-check-label" for="flexCheckDefault">
                   Corte tesoura R$ 20,00
                 </label>
               </div>
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Corte máq. e tesoura R$ 18,00" id="flexCheckChecked" name="2">
+                <input class="form-check-input" type="checkbox" value="18.00 Corte máq. e tesoura" id="CorteMaqTesoura" name="CorteMaqTesoura">
                 <label class="form-check-label" for="flexCheckChecked">
                   Corte máq. e tesoura R$ 18,00
                 </label>
               </div>
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Corte a máquina R$ 15,00" id="flexCheckChecked" name="3">
+                <input class="form-check-input" type="checkbox" value="15.00 Corte a máquina" id="CorteMaquina" name="CorteMaquina">
                 <label class="form-check-label" for="flexCheckChecked">
                   Corte a máquina R$ 15,00
                 </label>
@@ -65,28 +65,28 @@
             <div class="col">
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Alisamento de cabelo R$ 10,00" id="flexCheckChecked" name="4">
+                <input class="form-check-input" type="checkbox" value="10.00 Alisamento de cabelo" id="AlisamentoCabelo" name="AlisamentoCabelo">
                 <label class="form-check-label" for="flexCheckChecked">
                   Alisamento de cabelo R$ 10,00
                 </label>
               </div>
     
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Pintura de Cabelo R$ 25,00" id="flexCheckChecked" name="5">
+                <input class="form-check-input" type="checkbox" value="10.00 Pintura de Cabelo" id="PinturaCabelo" name="PinturaCabelo">
                 <label class="form-check-label" for="flexCheckChecked">
-                  Pintura de Cabelo R$ 25,00
+                  Pintura de Cabelo R$ 10,00
                 </label>
               </div>
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Corte a máquina R$ 15,00" id="flexCheckChecked" name="6">
+                <input class="form-check-input" type="checkbox" value="05.00 Pé de cabelo" id="PeCabelo" name="PeCabelo">
                 <label class="form-check-label" for="flexCheckChecked">
                   Pé de cabelo R$ 5,00
                 </label>
               </div>
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Alisamento de cabelo R$ 10,00" id="flexCheckChecked" name="7">
+                <input class="form-check-input" type="checkbox" value="25.00 Reflexo" id="Reflexo" name="Reflexo">
                 <label class="form-check-label" for="flexCheckChecked">
                   Reflexo R$ 25,00
                 </label>
@@ -97,30 +97,30 @@
             <div class="col">
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Barba R$ 10,00" id="flexCheckChecked" name="8">
+                <input class="form-check-input" type="checkbox" value="10.00 Barba" id="Barba" name="Barba">
                 <label class="form-check-label" for="flexCheckChecked">
                   Barba R$ 10,00
                 </label>
               </div>
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Marcar Barba R$ 5,00" id="flexCheckChecked" name="9">
+                <input class="form-check-input" type="checkbox" value="05.00 Marcar Barba" id="MarcarBarba" name="MarcarBarba">
                 <label class="form-check-label" for="flexCheckChecked">
                   Marcar Barba R$ 5,00
                 </label>
               </div>
     
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Pintura Barba R$ 5,00" id="flexCheckChecked" name="10">
+                <input class="form-check-input" type="checkbox" value="05.00 Pintura Barba" id="PinturaBarba" name="PinturaBarba">
                 <label class="form-check-label" for="flexCheckChecked">
                   Pintura Barba R$ 5,00
                 </label>
               </div>
     
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Sombrancelha M R$ 2,00" id="flexCheckChecked" name="11">
+                <input class="form-check-input" type="checkbox" value="02.00 Sombrancelha M" id="SobrancelhaM" name="SobrancelhaM">
                 <label class="form-check-label" for="flexCheckChecked">
-                  Sombrancelha M R$ 2,00
+                  Sobrancelha M R$ 2,00
                 </label>
               </div>
 
@@ -128,9 +128,9 @@
 
             <div class="col">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Sombrancelha F R$ 10,00" id="flexCheckChecked" name="12">
+                <input class="form-check-input" type="checkbox" value="10.00 Sobrancelha F" id="SobrancelhaF" name="SobrancelhaF">
                 <label class="form-check-label" for="flexCheckChecked">
-                  Sombrancelha F R$ 10,00
+                  Sobrancelha F R$ 10,00
                 </label>
               </div>
             </div>
@@ -145,6 +145,7 @@
       <br>
       <button type="button" 
               class="btn btn-success"
+              onclick="valorTotal()"
               data-bs-toggle="modal"
               data-bs-target="#modalRemoveBase">Salvar</button>
     </fieldset>
@@ -176,8 +177,7 @@
                       <div class="modal-body">
                           <p>
                               <div style="width: auto; margin-left: 15%;">
-                                <strong>Compartilhe o comprovante através do WhatsApp: (21) 98519-1812</strong
-                                  >
+                                <h5 style="text-align: center;"> <strong>Total: R$ <span id="totalValue"></span></strong> </h4>
                                 <a class="custom-brand"
                                 ><img
                                     src="../../static/img/pix_ricardo.jpg"
@@ -193,6 +193,7 @@
                                   <button class="btn btn-outline-secondary" type="button" onclick="copiarTexto()">Copiar</button>
                                 </div>
                               </div>
+                              <strong>Compartilhe o comprovante através do WhatsApp: (21) 98519-1812</strong>
                               </div>
                             
                           </p>
@@ -205,7 +206,10 @@
                           C A N C E L A R
                       </button>
                       <button
-                      type="submit"
+                      type="button"
+                      id = "buttonSave"
+                      name = "buttonSave"
+                      onclick="ValidarCelular()"
                       class="btn btn-success"
                       >
                           C O N F I R M A R
@@ -217,6 +221,125 @@
 
 
   </form>
+  <script>
+    function valorTotal() {
+      let CorteNavalhado   = document.getElementById("CorteNavalhado");  
+      let CorteTesoura     = document.getElementById("CorteTesoura"); 
+      let CorteMaqTesoura  = document.getElementById("CorteMaqTesoura"); 
+      let CorteMaquina     = document.getElementById("CorteMaquina"); 
+      let AlisamentoCabelo = document.getElementById("AlisamentoCabelo"); 
+      let PinturaCabelo    = document.getElementById("PinturaCabelo"); 
+      let PeCabelo         = document.getElementById("PeCabelo"); 
+      let Reflexo          = document.getElementById("Reflexo"); 
+      let Barba            = document.getElementById("Barba"); 
+      let MarcarBarba      = document.getElementById("MarcarBarba"); 
+      let PinturaBarba     = document.getElementById("PinturaBarba");  
+      let SobrancelhaM     = document.getElementById('SobrancelhaM');
+      let SobrancelhaF     = document.getElementById('SobrancelhaF');
+
+      let Total     = 0;
+      
+      if(CorteNavalhado.checked) {
+        Total += parseFloat(CorteNavalhado.value.substring(5, 0))
+      } 
+
+      if(CorteTesoura.checked) {
+        Total += parseFloat(CorteTesoura.value.substring(5, 0))
+      } 
+
+      if(CorteMaqTesoura.checked) {
+        Total += parseFloat(CorteMaqTesoura.value.substring(5, 0))
+      } 
+
+      if(CorteMaquina.checked) {
+        Total += parseFloat(CorteMaquina.value.substring(5, 0))
+      } 
+
+      if(AlisamentoCabelo.checked) {
+        Total += parseFloat(AlisamentoCabelo.value.substring(5, 0))
+      } 
+
+      if(PinturaCabelo.checked) {
+        Total += parseFloat(PinturaCabelo.value.substring(5, 0))
+      } 
+
+      if(PeCabelo.checked) {
+        Total += parseFloat(PeCabelo.value.substring(5, 0))
+      } 
+
+      if(Reflexo.checked) {
+        Total += parseFloat(Reflexo.value.substring(5, 0))
+      } 
+
+      if(Barba.checked) {
+        Total += parseFloat(Barba.value.substring(5, 0))
+      } 
+
+      if(MarcarBarba.checked) {
+        Total += parseFloat(MarcarBarba.value.substring(5, 0))
+      } 
+
+      if(PinturaBarba.checked) {
+        Total += parseFloat(PinturaBarba.value.substring(5, 0))
+      } 
+
+      if(SobrancelhaM.checked) {
+        Total += parseFloat(SobrancelhaM.value.substring(5, 0))
+      } 
+
+      if(SobrancelhaF.checked) {
+        Total += parseFloat(SobrancelhaF.value.substring(5, 0))
+      } 
+
+      document.getElementById('totalValue').innerHTML =  Total.toFixed(2)
+
+    }
+  </script>
+  <script>
+      function mascara(o,f){
+      v_obj=o
+      v_fun=f
+      setTimeout("execmascara()",1)
+  }
+  function execmascara(){
+      v_obj.value=v_fun(v_obj.value)
+  }
+  function mtel(v){
+      v=v.replace(/\D/g,""); //Remove tudo o que não é dígito
+      v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+      v=v.replace(/(\d)(\d{4})$/,"$1-$2"); //Coloca hífen entre o quarto e o quinto dígitos
+      return v;
+  }
+  function id( el ){
+    return document.getElementById( el );
+  }
+  window.onload = function(){
+    id('celular').onkeyup = function(){
+      mascara( this, mtel );
+    }
+  }
+  </script>
+
+  <script>
+    function ValidarCelular() {
+        var myform = document.getElementById("FormDefault");      
+        let Campo_Celular = document.getElementById("celular");
+        var tamanho = Campo_Celular.value;
+
+        if (tamanho.length == 15){
+          console.log('tamanho', tamanho.length)
+          myform.submit();
+          // document.getElementById("buttonSave").addEventListener("click", function () {
+          // myform.submit();});
+        }
+        else{
+          console.log('tamanho', tamanho.length)
+          alert('Celular Inválido. Verifique.')
+        }
+
+    }
+
+  </script>
 
   <script>
     function copiarTexto() {

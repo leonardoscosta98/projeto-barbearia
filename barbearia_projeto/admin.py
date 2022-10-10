@@ -4,7 +4,7 @@ from flask import Blueprint
 from flask import request
 import pytz
 from datetime import datetime
-from .utils import retornaDiaSemana, formataDisponibilidade, verificandoDisponibilidade, retornaTabela, formataDisponibilidadeSexta, verificandoDisponibilidadeSexta, formataDisponibilidadeSabado, verificandoDisponibilidadeSexta
+from .utils import agendamentoSemanal, retornaDiaSemana, formataDisponibilidade, verificandoDisponibilidade, retornaTabela, formataDisponibilidadeSexta, verificandoDisponibilidadeSexta, formataDisponibilidadeSabado, verificandoDisponibilidadeSexta
 
 bp = Blueprint("admin", __name__)
 
@@ -37,22 +37,17 @@ def agenda():
 
 	from_tabela = retornaTabela(search)
 
-	if search < dia_atual:	
-		flash('Data indisponível'.format(search))
+	if (search < dia_atual):	
+		flash('Data indisponível para agendamento.')
 		search = dia_atual
 		datatable = datetime.today().strftime('%d-%m-%Y')
 		dia_da_semana = retornaDiaSemana(search)
 	
-	if dia_da_semana in ['Domingo'] and session['usuario_logado'] == None  :
-		flash('Desculpe, não atendemos aos Domingos.'.format(search))
-		
-	
+
 	agenda = execQuery("""
 		select 
 		*
 		from {} """.format(from_tabela))
-
-		
 
 	disponivel = execQuery("""
 		select 
@@ -81,6 +76,9 @@ def agenda():
 	elif from_tabela in ['sabado_sabado']:
 		disponibilidade = verificandoDisponibilidadeSexta(agenda,formataDisponibilidadeSexta(disponivel[0]))
 
+	if ((dia_da_semana in ['Domingo','Segunda-Feira']) and (session['usuario_logado'] == None)) or ((session['usuario_logado'] == None) and (agendamentoSemanal(search, dia_atual) == False)):
+		flash('Data indisponível para agendamento.')
+		disponibilidade = {}
 	
 	return render_template("agenda.html", disponibilidades=disponibilidade, filtro=search, datatable=datatable, dia=dia_da_semana, login = session['usuario_logado'])
 
@@ -95,8 +93,8 @@ def agendamento(datatable,horario):
 def confirmacao(datatable,horario):	
 
 	nome = request.form.get("nome","")
-	celular = request.form.get("celular","")
-	servicos = request.form.get("1","") + request.form.get("2","")+request.form.get("3","")+request.form.get("4","") +request.form.get("5","")+request.form.get("6","")+request.form.get("7","")+request.form.get("8","")+request.form.get("9","")+request.form.get("10","")+request.form.get("11","")+request.form.get("12","")
+	celular = ''.join(filter(lambda i: i if i.isdigit() else None, request.form.get("celular","")))     
+	servicos = request.form.get("CorteNavalhado","") + request.form.get("CorteTesoura","")+request.form.get("CorteMaqTesoura","")+request.form.get("CorteMaquina","") +request.form.get("AlisamentoCabelo","")+request.form.get("PinturaCabelo","")+request.form.get("PeCabelo","")+request.form.get("Reflexo","")+request.form.get("Barba","")+request.form.get("MarcarBarba","")+request.form.get("PinturaBarba","")+request.form.get("SobrancelhaM","")+request.form.get("SobrancelhaF","")
 	observacao = request.form.get("observacao","")
 
 	

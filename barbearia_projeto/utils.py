@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def retornaDiaSemana(dataDia):
 
@@ -317,3 +317,46 @@ def verificandoDisponibilidadeSabado(agenda,newDict):
 
 
 	return agenda
+
+
+def agendamentoSemanal(search,dia_atual):
+
+	if search == dia_atual:
+		return True
+
+	
+	if dia_atual > search:
+		return False
+	
+	dia_da_semana = retornaDiaSemana(dia_atual)
+
+	dia_atual = datetime.strptime(dia_atual, '%Y-%m-%d').date()
+	search    = datetime.strptime(search, '%Y-%m-%d').date()
+
+	if dia_da_semana == 'Domingo':
+		data_inicio = dia_atual
+		data_fim    = dia_atual + timedelta(6)
+	elif dia_da_semana == 'Segunda-Feira':
+		data_inicio = dia_atual
+		data_fim    = dia_atual + timedelta(5)
+	elif dia_da_semana == 'Terça-Feira':
+		data_inicio = dia_atual
+		data_fim    = dia_atual + timedelta(4)
+	elif dia_da_semana == 'Quarta-Feira':
+		data_inicio = dia_atual
+		data_fim    = dia_atual + timedelta(3)
+	elif dia_da_semana == 'Quinta-Feira':
+		data_inicio = dia_atual
+		data_fim    = dia_atual + timedelta(2)
+	elif dia_da_semana == 'sexta-Feira':
+		data_inicio = dia_atual
+		data_fim    = dia_atual + timedelta(1)
+	elif dia_da_semana == 'Sábado':
+		data_inicio = dia_atual
+		data_fim    = dia_atual 
+
+	
+	if data_inicio <= search <= data_fim:
+		return True
+	else:
+		return False
