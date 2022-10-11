@@ -211,7 +211,7 @@
                       type="button"
                       id = "buttonSave"
                       name = "buttonSave"
-                      onclick="ValidarCelular()"
+                      onclick="ValidarSumit()"
                       class="btn btn-success"
                       >
                           C O N F I R M A R
@@ -323,20 +323,20 @@
   </script>
 
   <script>
-    function ValidarCelular() {
+    function ValidarSumit() {
         var myform = document.getElementById("FormDefault");      
-        let Campo_Celular = document.getElementById("celular");
-        var tamanho = Campo_Celular.value;
-
-        if (tamanho.length == 15){
-          console.log('tamanho', tamanho.length)
-          myform.submit();
-          // document.getElementById("buttonSave").addEventListener("click", function () {
-          // myform.submit();});
+        let campo_Celular = document.getElementById("celular");
+        var tamanho = campo_Celular.value;
+        var valor = document.getElementById('totalValue').innerHTML;
+        
+        if(valor <= 0){
+          alert('Nenhum serviço selecionado. Verifique.');
+        }
+        else if (tamanho.length != 15){
+          alert('Celular Inválido. Verifique.');
         }
         else{
-          console.log('tamanho', tamanho.length)
-          alert('Celular Inválido. Verifique.')
+          myform.submit();
         }
 
     }
