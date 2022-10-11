@@ -101,7 +101,17 @@ def confirmacao(datatable,horario):
 	servicos = servicos.replace("]",'')
 	observacao = request.form.get("observacao","")
 
+	disponivel = execQuery("""
+		select
+		count(disponibilidade) as disponibilidade
+		from agendamento 
+		where disponibilidade= '{}'
+		and  data = '{}' """.format(horario, datatable ))
 	
+	if disponivel[0].get('disponibilidade') > 0:
+		flash('Horário indisponível, tente outro horário!')
+		return redirect(url_for('admin.agenda'))
+
 	try:
 		if horario == '06:00':
 			gravar = execQuery("""
