@@ -360,3 +360,29 @@ def agendamentoSemanal(search,dia_atual):
 		return True
 	else:
 		return False
+	
+def adicionaServicos(CorteNavalhado,CorteTesoura,CorteMaqTesoura,CorteMaquina,AlisamentoCabelo,PinturaCabelo,PeCabelo,Reflexo,Barba,MarcarBarba,PinturaBarba,SobrancelhaM,SobrancelhaF):
+
+	listaservicos = []
+
+	listaservicos.append(CorteNavalhado)
+	listaservicos.append(CorteTesoura)
+	listaservicos.append(CorteMaqTesoura)
+	listaservicos.append(CorteMaquina)
+	listaservicos.append(AlisamentoCabelo)
+	listaservicos.append(PinturaCabelo)
+	listaservicos.append(PeCabelo)
+	listaservicos.append(Reflexo)
+	listaservicos.append(Barba)
+	listaservicos.append(MarcarBarba)
+	listaservicos.append(PinturaBarba)
+	listaservicos.append(SobrancelhaM)
+	listaservicos.append(SobrancelhaF)
+	
+	servicosAux = []
+	for x in range(len(listaservicos)):
+		if listaservicos[x] != '':
+			servicosAux.append(listaservicos[x])
+
+
+	return servicosAux

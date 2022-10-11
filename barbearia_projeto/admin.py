@@ -4,7 +4,7 @@ from flask import Blueprint
 from flask import request
 import pytz
 from datetime import datetime
-from .utils import agendamentoSemanal, retornaDiaSemana, formataDisponibilidade, verificandoDisponibilidade, retornaTabela, formataDisponibilidadeSexta, verificandoDisponibilidadeSexta, formataDisponibilidadeSabado, verificandoDisponibilidadeSexta
+from .utils import agendamentoSemanal, adicionaServicos, retornaDiaSemana, formataDisponibilidade, verificandoDisponibilidade, retornaTabela, formataDisponibilidadeSexta, verificandoDisponibilidadeSexta, formataDisponibilidadeSabado, verificandoDisponibilidadeSexta
 
 bp = Blueprint("admin", __name__)
 
@@ -94,7 +94,11 @@ def confirmacao(datatable,horario):
 
 	nome = request.form.get("nome","")
 	celular = ''.join(filter(lambda i: i if i.isdigit() else None, request.form.get("celular","")))     
-	servicos = request.form.get("CorteNavalhado","") + request.form.get("CorteTesoura","")+request.form.get("CorteMaqTesoura","")+request.form.get("CorteMaquina","") +request.form.get("AlisamentoCabelo","")+request.form.get("PinturaCabelo","")+request.form.get("PeCabelo","")+request.form.get("Reflexo","")+request.form.get("Barba","")+request.form.get("MarcarBarba","")+request.form.get("PinturaBarba","")+request.form.get("SobrancelhaM","")+request.form.get("SobrancelhaF","")
+	servicos = str(adicionaServicos(request.form.get("CorteNavalhado",""),request.form.get("CorteTesoura",""),request.form.get("CorteMaqTesoura",""),request.form.get("CorteMaquina",""),request.form.get("AlisamentoCabelo",""),request.form.get("PinturaCabelo",""),request.form.get("PeCabelo",""),request.form.get("Reflexo",""),request.form.get("Barba",""),request.form.get("MarcarBarba",""),request.form.get("PinturaBarba",""),request.form.get("SobrancelhaM",""),request.form.get("SobrancelhaF","") )) 
+	servicos = servicos.replace(',','\n')
+	servicos = servicos.replace("'",'')
+	servicos = servicos.replace("[",'')
+	servicos = servicos.replace("]",'')
 	observacao = request.form.get("observacao","")
 
 	
