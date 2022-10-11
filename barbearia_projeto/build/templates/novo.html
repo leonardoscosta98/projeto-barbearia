@@ -1,0 +1,355 @@
+{% extends "base.html" %} {% block title %}Início{% endblock %} {% block
+  content %}
+  <div class="row">
+    <div class="col">
+        <h4>
+            <a href="/agenda" onclick="loading()" style="text-decoration: none; color: black"
+                ><i class="fa-solid fa-circle-arrow-left"></i
+            ></a>
+            Reservar Horário {{dia}}({{datatable}}) às {{horario}} h
+        </h4>
+    </div>
+  </div>
+  <form action="/confirmacao/{{datatable}}/{{horario}}" method="post" id="FormDefault">
+    <fieldset>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="nome"><strong>Nome</strong></label>
+            <input type="text" id="nome" name="nome" class="form-control" required>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div clas="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="nome" ><strong>Celular</strong> Ex.: (21) 98519-1812</label>
+            <input type="text" id="celular" name="celular" class="form-control" placeholder="Digite um número do WhatsApp" maxlength="15"  required>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="categoria"><strong>Serviços</strong></label>
+          <div class="row">
+            <div class="col">
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="25.00 Corte navalhado" id="CorteNavalhado" name="CorteNavalhado">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Corte navalhado R$ 25,00
+                </label>
+              </div>
+             
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="20.00 Corte tesoura" id="CorteTesoura" name="CorteTesoura">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Corte tesoura R$ 20,00
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="18.00 Corte máq. e tesoura" id="CorteMaqTesoura" name="CorteMaqTesoura">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Corte máq. e tesoura R$ 18,00
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="15.00 Corte a máquina" id="CorteMaquina" name="CorteMaquina">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Corte a máquina R$ 15,00
+                </label>
+              </div>
+            </div>
+
+            <div class="col">
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="10.00 Alisamento de cabelo" id="AlisamentoCabelo" name="AlisamentoCabelo">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Alisamento de cabelo R$ 10,00
+                </label>
+              </div>
+    
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="10.00 Pintura de Cabelo" id="PinturaCabelo" name="PinturaCabelo">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Pintura de Cabelo R$ 10,00
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="05.00 Pé de cabelo" id="PeCabelo" name="PeCabelo">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Pé de cabelo R$ 5,00
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="25.00 Reflexo" id="Reflexo" name="Reflexo">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Reflexo R$ 25,00
+                </label>
+              </div>
+
+            </div>
+
+            <div class="col">
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="10.00 Barba" id="Barba" name="Barba">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Barba R$ 10,00
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="05.00 Marcar Barba" id="MarcarBarba" name="MarcarBarba">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Marcar Barba R$ 5,00
+                </label>
+              </div>
+    
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="05.00 Pintura Barba" id="PinturaBarba" name="PinturaBarba">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Pintura Barba R$ 5,00
+                </label>
+              </div>
+    
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="02.00 Sombrancelha M" id="SobrancelhaM" name="SobrancelhaM">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Sobrancelha M R$ 2,00
+                </label>
+              </div>
+
+            </div>
+
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="10.00 Sobrancelha F" id="SobrancelhaF" name="SobrancelhaF">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Sobrancelha F R$ 10,00
+                </label>
+              </div>
+            </div>
+
+          </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <!-- <label for="console"> <strong>Observação</strong></label> -->
+        <input type="hidden" id="observacao" name="observacao" class="form-control">
+      </div>
+      <br>
+      <button type="button" 
+              class="btn btn-success"
+              onclick="valorTotal()"
+              data-bs-toggle="modal"
+              data-bs-target="#modalRemoveBase">Salvar</button>
+    </fieldset>
+  <!-- Modal Confimação -->
+  <div
+  class="modal fade"
+  id="modalRemoveBase"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalRemoveBaseLabel"
+  aria-hidden="true"
+  value=""
+  >
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="modalRemoveBaseLabel">
+                  Pagamento antecipado - (Opcional)
+              </h5>
+              <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+              ></button>
+          </div>
+                  <div class="modal-footer">
+                      <div class="modal-body">
+                          <p>
+                              <div style="width: auto; margin-left: 15%;">
+                                <h5 style="text-align: center;"> <strong>Total: R$ <span id="totalValue"></span></strong> </h4>
+                                <a class="custom-brand"
+                                ><img
+                                    src="../../static/img/pix_ricardo.jpg"
+                                    alt=""
+                                    style="width: 17rem;
+                                          margin-right: 5rem;"
+                                    
+                              /></a> 
+
+                              <div class="input-group mb-3">
+                                <input type="text" name="texto" id="texto" value="00020126330014br.gov.bcb.pix0111117926357025204000053039865802BR5925RICARDO FERREIRA DA SILVA6004MAGE62070503***630400A6" class="form-control" readonly>
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary" type="button" onclick="copiarTexto()">Copiar</button>
+                                </div>
+                              </div>
+                              <strong>Compartilhe o comprovante através do WhatsApp: (21) 98519-1812</strong>
+                              </div>
+                            
+                          </p>
+                      </div>
+                      <button
+                      type="button"
+                      class="btn btn-dark"
+                      data-bs-dismiss="modal"
+                      >
+                          C A N C E L A R
+                      </button>
+                      <button
+                      type="button"
+                      id = "buttonSave"
+                      name = "buttonSave"
+                      onclick="ValidarCelular()"
+                      class="btn btn-success"
+                      >
+                          C O N F I R M A R
+                      </button>  
+              </div>
+      </div>
+  </div>
+  </div>
+
+
+  </form>
+  <script>
+    function valorTotal() {
+      let CorteNavalhado   = document.getElementById("CorteNavalhado");  
+      let CorteTesoura     = document.getElementById("CorteTesoura"); 
+      let CorteMaqTesoura  = document.getElementById("CorteMaqTesoura"); 
+      let CorteMaquina     = document.getElementById("CorteMaquina"); 
+      let AlisamentoCabelo = document.getElementById("AlisamentoCabelo"); 
+      let PinturaCabelo    = document.getElementById("PinturaCabelo"); 
+      let PeCabelo         = document.getElementById("PeCabelo"); 
+      let Reflexo          = document.getElementById("Reflexo"); 
+      let Barba            = document.getElementById("Barba"); 
+      let MarcarBarba      = document.getElementById("MarcarBarba"); 
+      let PinturaBarba     = document.getElementById("PinturaBarba");  
+      let SobrancelhaM     = document.getElementById('SobrancelhaM');
+      let SobrancelhaF     = document.getElementById('SobrancelhaF');
+
+      let Total     = 0;
+      
+      if(CorteNavalhado.checked) {
+        Total += parseFloat(CorteNavalhado.value.substring(5, 0))
+      } 
+
+      if(CorteTesoura.checked) {
+        Total += parseFloat(CorteTesoura.value.substring(5, 0))
+      } 
+
+      if(CorteMaqTesoura.checked) {
+        Total += parseFloat(CorteMaqTesoura.value.substring(5, 0))
+      } 
+
+      if(CorteMaquina.checked) {
+        Total += parseFloat(CorteMaquina.value.substring(5, 0))
+      } 
+
+      if(AlisamentoCabelo.checked) {
+        Total += parseFloat(AlisamentoCabelo.value.substring(5, 0))
+      } 
+
+      if(PinturaCabelo.checked) {
+        Total += parseFloat(PinturaCabelo.value.substring(5, 0))
+      } 
+
+      if(PeCabelo.checked) {
+        Total += parseFloat(PeCabelo.value.substring(5, 0))
+      } 
+
+      if(Reflexo.checked) {
+        Total += parseFloat(Reflexo.value.substring(5, 0))
+      } 
+
+      if(Barba.checked) {
+        Total += parseFloat(Barba.value.substring(5, 0))
+      } 
+
+      if(MarcarBarba.checked) {
+        Total += parseFloat(MarcarBarba.value.substring(5, 0))
+      } 
+
+      if(PinturaBarba.checked) {
+        Total += parseFloat(PinturaBarba.value.substring(5, 0))
+      } 
+
+      if(SobrancelhaM.checked) {
+        Total += parseFloat(SobrancelhaM.value.substring(5, 0))
+      } 
+
+      if(SobrancelhaF.checked) {
+        Total += parseFloat(SobrancelhaF.value.substring(5, 0))
+      } 
+
+      document.getElementById('totalValue').innerHTML =  Total.toFixed(2)
+
+    }
+  </script>
+  <script>
+      function mascara(o,f){
+      v_obj=o
+      v_fun=f
+      setTimeout("execmascara()",1)
+  }
+  function execmascara(){
+      v_obj.value=v_fun(v_obj.value)
+  }
+  function mtel(v){
+      v=v.replace(/\D/g,""); //Remove tudo o que não é dígito
+      v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+      v=v.replace(/(\d)(\d{4})$/,"$1-$2"); //Coloca hífen entre o quarto e o quinto dígitos
+      return v;
+  }
+  function id( el ){
+    return document.getElementById( el );
+  }
+  window.onload = function(){
+    id('celular').onkeyup = function(){
+      mascara( this, mtel );
+    }
+  }
+  </script>
+
+  <script>
+    function ValidarCelular() {
+        var myform = document.getElementById("FormDefault");      
+        let Campo_Celular = document.getElementById("celular");
+        var tamanho = Campo_Celular.value;
+
+        if (tamanho.length == 15){
+          console.log('tamanho', tamanho.length)
+          myform.submit();
+          // document.getElementById("buttonSave").addEventListener("click", function () {
+          // myform.submit();});
+        }
+        else{
+          console.log('tamanho', tamanho.length)
+          alert('Celular Inválido. Verifique.')
+        }
+
+    }
+
+  </script>
+
+  <script>
+    function copiarTexto() {
+        let textoCopiado = document.getElementById("texto");
+        textoCopiado.select();
+        textoCopiado.setSelectionRange(0, 99999)
+        document.execCommand("copy");
+    }
+  </script>
+  {% endblock %}
+  
