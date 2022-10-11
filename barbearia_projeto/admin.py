@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, flash, session
 from .db import execQuery
 from flask import Blueprint
 from flask import request
+from os import environ
 import pytz
 from datetime import datetime
 from .utils import agendamentoSemanal, adicionaServicos, retornaDiaSemana, formataDisponibilidade, verificandoDisponibilidade, retornaTabela, formataDisponibilidadeSexta, verificandoDisponibilidadeSexta, formataDisponibilidadeSabado, verificandoDisponibilidadeSexta
@@ -243,6 +244,12 @@ def login():
 @bp.route('/autenticar', methods=['POST', ])
 def autenticar():
 
+		Brasil             = pytz.timezone('America/Sao_Paulo')
+		dia_atual 		   = datetime.today()
+		data_formatada_tz  = dia_atual.replace(tzinfo=pytz.UTC)
+		data_formatada_br  = data_formatada_tz.astimezone(Brasil)
+		dia_atual 		   = data_formatada_br.strftime('%Y-%m-%d')
+
 		usuario_usuario = execQuery("""
 		select 
 		*
@@ -251,6 +258,19 @@ def autenticar():
 		if usuario_usuario == []:
 			flash('Usuário não logado.')
 			return redirect(url_for('admin.login'))
+		
+		size_db = execQuery("""
+		SELECT
+		pg_size_pretty (
+			pg_database_size ('{}')
+		);""".format(environ.get('DATABASE_NAME')))
+		
+		size_db = size_db[0].get('pg_size_pretty').replace(' kB', '')
+		size_db = size_db.replace(' MB', '')
+		size_db = float(size_db)
+
+		if (size_db / 1000) >= 18:
+			execQuery("""delete from agendamento where data < '{}' """.format(dia_atual),onlyExec=True) 
 
 		session['usuario_logado'] = usuario_usuario[0].get('login')
 		flash('Bem vindo, ' + usuario_usuario[0].get('login')+'!')
