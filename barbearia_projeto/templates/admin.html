@@ -18,7 +18,8 @@ content %}
                 <th scope="col">Horário</th>  
                 <th scope="col">Nome</th>
                 <th scope="col">Celular</th>
-                <th scope="col">WPP</th> 
+                <th scope="col">WPP</th>
+                <th scope="col" style="text-align: center">PG</th>  
                 <th scope="col" style="width: 20%">Serviço</th> 
                 <th scope="col"></th>
             </tr>
@@ -31,11 +32,22 @@ content %}
                 <td>{{disponibilidade.disponibilidade}}</td>
                 <td>{{disponibilidade.name}}</td>
                 <td>{{disponibilidade.celular}}</td>
-                <td><a href="https://wa.me/21{{disponibilidade.celular}}?text=Faltam%20aproximadamente%2015%20minutos%20para%20sua%20vez."> <img
+                <td><a href="https://wa.me/{{disponibilidade.celular}}?text=Faltam%20aproximadamente%2015%20minutos%20para%20sua%20vez."> <img
                     src="../../static/img/whatsapp.png"
                     alt=""
                     style="width: 2rem;"
                 /></a></td>
+                <td style="text-align: center" >
+                    {% if disponibilidade.pagamento == None %}
+                    <form action="/pagamento/{{disponibilidade.id}}" method="post">
+                        <button type="submit" class="btn btn-danger">Não</button>
+                    </form>
+                    {% else %}
+                    <form action="/pagamento/{{disponibilidade.id}}" method="post">
+                        <button type="submit" class="btn btn-success">Sim</button>
+                    </form>
+                    {% endif %}
+                </td>
                 <td>{{disponibilidade.servico}}</td>
                 <td>
                     <form action="/delete/{{disponibilidade.id}}" method="post">

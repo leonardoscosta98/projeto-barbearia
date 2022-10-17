@@ -293,3 +293,16 @@ def delete(id):
 	execQuery("""delete from agendamento where id = {} """.format(id),onlyExec=True) 
 	
 	return redirect(url_for('admin.admin'))
+
+@bp.route('/pagamento/<id>',methods=['POST','GET'])
+def pagamento(id):
+	
+	pagamento = execQuery("""select pagamento from agendamento where id = '{}' """.format(id))
+
+	if pagamento[0].get('pagamento') == True:
+		execQuery("""UPDATE public.agendamento SET pagamento = null where id = '{}' """.format(id), onlyExec=True)
+	else:
+		execQuery("""UPDATE public.agendamento SET pagamento = True where id = '{}' """.format(id), onlyExec=True)
+
+
+	return redirect(url_for('admin.admin'))
