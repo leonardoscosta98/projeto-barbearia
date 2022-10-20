@@ -39,7 +39,7 @@ def agenda():
 	from_tabela = retornaTabela(search)
 
 	if (search < dia_atual):	
-		flash('Data indisponível para agendamento.')
+		flash('Falha! Data indisponível para agendamento.')
 		search = dia_atual
 		datatable = datetime.today().strftime('%d-%m-%Y')
 		dia_da_semana = retornaDiaSemana(search)
@@ -78,7 +78,7 @@ def agenda():
 		disponibilidade = verificandoDisponibilidadeSexta(agenda,formataDisponibilidadeSexta(disponivel[0]))
 
 	if ((dia_da_semana in ['Domingo','Segunda-Feira']) and (session['usuario_logado'] == None)) or ((session['usuario_logado'] == None) and (agendamentoSemanal(search, dia_atual) == False)):
-		flash('Data indisponível para agendamento.')
+		flash('Falha! Data indisponível para agendamento.')
 		disponibilidade = {}
 	
 	return render_template("agenda.html", disponibilidades=disponibilidade, filtro=search, datatable=datatable, dia=dia_da_semana, login = session['usuario_logado'])
@@ -110,7 +110,7 @@ def confirmacao(datatable,horario):
 		and  data = '{}' """.format(horario, datatable ))
 	
 	if disponivel[0].get('disponibilidade') > 0:
-		flash('Horário indisponível, tente outro horário!')
+		flash('Falha! Horário indisponível, tente outro horário!')
 		return redirect(url_for('admin.agenda'))
 
 	try:
@@ -256,7 +256,7 @@ def autenticar():
 		from usuarios_usuarios where login = '{}' and pass = '{}' """.format(request.form['usuario'], request.form['senha']))
 
 		if usuario_usuario == []:
-			flash('Usuário não logado.')
+			flash('Falha! Usuário não logado.')
 			return redirect(url_for('admin.login'))
 		
 		size_db = execQuery("""
