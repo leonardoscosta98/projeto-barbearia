@@ -70,11 +70,11 @@ def agenda():
 		count(vinte_dois) as vinte_dois
 		from agendamento where data = '{}' """.format(search))
 	
-	if from_tabela not in ['sexta_sexta','sabado_sabado']:
+	if from_tabela not in ['sexta_sexta','sabado_sabado','domingo_domingo']:
 		disponibilidade = verificandoDisponibilidade(agenda,formataDisponibilidade(disponivel[0]))
 	elif from_tabela in ['sexta_sexta']:
 		disponibilidade = verificandoDisponibilidadeSexta(agenda,formataDisponibilidadeSexta(disponivel[0]))
-	elif from_tabela in ['sabado_sabado']:
+	elif from_tabela in ['sabado_sabado', 'domingo_domingo']:
 		disponibilidade = verificandoDisponibilidadeSexta(agenda,formataDisponibilidadeSexta(disponivel[0]))
 
 	if ((dia_da_semana in ['Domingo','Segunda-Feira']) and (session['usuario_logado'] == None)) or ((session['usuario_logado'] == None) and (agendamentoSemanal(search, dia_atual) == False)):
