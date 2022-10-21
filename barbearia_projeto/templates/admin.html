@@ -32,7 +32,7 @@ content %}
                 <td>{{disponibilidade.disponibilidade}}</td>
                 <td>{{disponibilidade.name}}</td>
                 <td>{{disponibilidade.celular}}</td>
-                <td><a href="https://wa.me/{{disponibilidade.celular}}?text=Faltam%20aproximadamente%2015%20minutos%20para%20sua%20vez."> <img
+                <td><a href="https://api.whatsapp.com/send?phone=55{{disponibilidade.celular}}&text=Faltam%20aproximadamente%2015%20minutos%20para%20sua%20vez."> <img
                     src="../../static/img/whatsapp.png"
                     alt=""
                     style="width: 2rem;"
