@@ -30,10 +30,8 @@ def agenda():
 	search = request.form.get("search","")
 	if search != '':
 		datatable = datetime.strptime(search, '%Y-%m-%d').strftime("%d-%m-%Y")
-		dia_da_semana = retornaDiaSemana(search)
 	else:
 		search= dia_atual
-		dia_da_semana = retornaDiaSemana(search)
 		datatable= data_formatada_br.strftime('%d-%m-%Y')
 
 	from_tabela = retornaTabela(search)
@@ -42,16 +40,17 @@ def agenda():
 		flash('Falha! Data indisponível para agendamento.')
 		search = dia_atual
 		datatable = datetime.today().strftime('%d-%m-%Y')
-		dia_da_semana = retornaDiaSemana(search)
-	
+		
+	dia_da_semana = retornaDiaSemana(search)
+
 	if ((dia_da_semana in ['Domingo','Segunda-Feira']) and (session['usuario_logado'] == None)) or ((session['usuario_logado'] == None) and (agendamentoSemanal(search, dia_atual) == False)):
 		search    = datetime.strptime(search, '%Y-%m-%d').date()
 		if dia_da_semana == 'Domingo':
 			search    = search + timedelta(2)
-			search    = search.strftime('%Y-%m-%d')
 		elif dia_da_semana == 'Segunda-Feira':
 			search    = search + timedelta(1)
-			search    = search.strftime('%Y-%m-%d')
+		search    = search.strftime('%Y-%m-%d')
+		dia_da_semana = retornaDiaSemana(search)
 		# flash('Falha! Data indisponível para agendamento.')
 		# disponibilidade = {}
 	
