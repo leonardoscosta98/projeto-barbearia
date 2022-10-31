@@ -34,8 +34,6 @@ def agenda():
 		search= dia_atual
 		datatable= data_formatada_br.strftime('%d-%m-%Y')
 
-	from_tabela = retornaTabela(search)
-
 	if (search < dia_atual):	
 		flash('Falha! Data indisponível para agendamento.')
 		search = dia_atual
@@ -53,7 +51,8 @@ def agenda():
 		dia_da_semana = retornaDiaSemana(search)
 		# flash('Falha! Data indisponível para agendamento.')
 		# disponibilidade = {}
-	
+
+	from_tabela = retornaTabela(search)	
 
 	agenda = execQuery("""
 		select 
