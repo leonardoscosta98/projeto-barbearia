@@ -44,6 +44,17 @@ def agenda():
 		datatable = datetime.today().strftime('%d-%m-%Y')
 		dia_da_semana = retornaDiaSemana(search)
 	
+	if ((dia_da_semana in ['Domingo','Segunda-Feira']) and (session['usuario_logado'] == None)) or ((session['usuario_logado'] == None) and (agendamentoSemanal(search, dia_atual) == False)):
+		search    = datetime.strptime(search, '%Y-%m-%d').date()
+		if dia_da_semana == 'Domingo':
+			search    = search + timedelta(2)
+			search    = search.strftime('%Y-%m-%d')
+		elif dia_da_semana == 'Segunda-Feira':
+			search    = search + timedelta(1)
+			search    = search.strftime('%Y-%m-%d')
+		# flash('Falha! Data indisponível para agendamento.')
+		# disponibilidade = {}
+	
 
 	agenda = execQuery("""
 		select 
@@ -77,16 +88,6 @@ def agenda():
 	elif from_tabela in ['sabado_sabado', 'domingo_domingo']:
 		disponibilidade = verificandoDisponibilidadeSexta(agenda,formataDisponibilidadeSexta(disponivel[0]))
 
-	if ((dia_da_semana in ['Domingo','Segunda-Feira']) and (session['usuario_logado'] == None)) or ((session['usuario_logado'] == None) and (agendamentoSemanal(search, dia_atual) == False)):
-		search    = datetime.strptime(search, '%Y-%m-%d').date()
-		if dia_da_semana == 'Domingo':
-			search    = search + timedelta(2)
-			search    = search.strftime('%Y-%m-%d')
-		elif dia_da_semana == 'Segunda-Feira':
-			search    = search + timedelta(1)
-			search    = search.strftime('%Y-%m-%d')
-		# flash('Falha! Data indisponível para agendamento.')
-		# disponibilidade = {}
 	
 	return render_template("agenda.html", disponibilidades=disponibilidade, filtro=search, datatable=datatable, dia=dia_da_semana, login = session['usuario_logado'])
 
