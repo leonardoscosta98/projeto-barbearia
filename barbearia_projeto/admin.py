@@ -4,7 +4,7 @@ from flask import Blueprint
 from flask import request
 from os import environ
 import pytz
-from datetime import datetime
+from datetime import datetime, timedelta
 from .utils import agendamentoSemanal, adicionaServicos, retornaDiaSemana, formataDisponibilidade, verificandoDisponibilidade, retornaTabela, formataDisponibilidadeSexta, verificandoDisponibilidadeSexta, formataDisponibilidadeSabado, verificandoDisponibilidadeSexta
 
 bp = Blueprint("admin", __name__)
@@ -78,8 +78,15 @@ def agenda():
 		disponibilidade = verificandoDisponibilidadeSexta(agenda,formataDisponibilidadeSexta(disponivel[0]))
 
 	if ((dia_da_semana in ['Domingo','Segunda-Feira']) and (session['usuario_logado'] == None)) or ((session['usuario_logado'] == None) and (agendamentoSemanal(search, dia_atual) == False)):
-		flash('Falha! Data indisponível para agendamento.')
-		disponibilidade = {}
+		search    = datetime.strptime(search, '%Y-%m-%d').date()
+		if dia_da_semana == 'Domingo':
+			search    = search + timedelta(2)
+			search    = search.strftime('%Y-%m-%d')
+		elif dia_da_semana == 'Segunda-Feira':
+			search    = search + timedelta(1)
+			search    = search.strftime('%Y-%m-%d')
+		# flash('Falha! Data indisponível para agendamento.')
+		# disponibilidade = {}
 	
 	return render_template("agenda.html", disponibilidades=disponibilidade, filtro=search, datatable=datatable, dia=dia_da_semana, login = session['usuario_logado'])
 
