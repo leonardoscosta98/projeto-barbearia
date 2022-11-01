@@ -9,6 +9,7 @@ from .utils import agendamentoSemanal, adicionaServicos, retornaDiaSemana, forma
 
 bp = Blueprint("admin", __name__)
 
+
 @bp.route("/")
 def index():
 	try:
@@ -27,6 +28,12 @@ def agenda():
 	data_formatada_br  = data_formatada_tz.astimezone(Brasil)
 	dia_atual 		   = data_formatada_br.strftime('%Y-%m-%d')
 
+	try:
+		login = session['usuario_logado']
+	except:
+		session['usuario_logado'] = None
+		login = session['usuario_logado']
+
 	search = request.form.get("search","")
 	if search != '':
 		datatable = datetime.strptime(search, '%Y-%m-%d').strftime("%d-%m-%Y")
@@ -41,7 +48,7 @@ def agenda():
 		
 	dia_da_semana = retornaDiaSemana(search)
 
-	if ((dia_da_semana in ['Domingo','Segunda-Feira']) and (session['usuario_logado'] == None)):
+	if ((dia_da_semana in ['Domingo','Segunda-Feira']) and (login == None)):
 		search    = datetime.strptime(search, '%Y-%m-%d').date()
 		if dia_da_semana == 'Domingo':
 			search    = search + timedelta(2)
@@ -85,14 +92,20 @@ def agenda():
 		disponibilidade = verificandoDisponibilidadeSexta(agenda,formataDisponibilidadeSexta(disponivel[0]))
 
 
-	if  ((session['usuario_logado'] == None) and (agendamentoSemanal(search, dia_atual) == False)):
+	if  ((login == None) and (agendamentoSemanal(search, dia_atual) == False)):
 		flash('Falha! Data indisponível para agendamento.')
 		disponibilidade = {}
 	
-	return render_template("agenda.html", disponibilidades=disponibilidade, filtro=search, datatable=datatable, dia=dia_da_semana, login = session['usuario_logado'])
+	return render_template("agenda.html", disponibilidades=disponibilidade, filtro=search, datatable=datatable, dia=dia_da_semana, login = login)
 
 @bp.route("/agendamento/<datatable>/<horario>", methods=["POST", "GET"])
 def agendamento(datatable,horario):	
+
+	try:
+		login = session['usuario_logado']
+	except:
+		session['usuario_logado'] = None
+		login = session['usuario_logado']
 
 	dia_da_semana = retornaDiaSemana(datatable)
 
@@ -215,7 +228,13 @@ def confirmacao(datatable,horario):
 @bp.route("/admin", methods=["POST", "GET"])
 def admin():	
 
-	if 'usuario_logado' not in session or session['usuario_logado'] == None:
+	try:
+		login = session['usuario_logado']
+	except:
+		session['usuario_logado'] = None
+		login = session['usuario_logado']
+
+	if 'usuario_logado' not in session or login == None:
 		return redirect(url_for('admin.login'))
 
 	Brasil             = pytz.timezone('America/Sao_Paulo')
@@ -244,9 +263,15 @@ def admin():
 
 @bp.route('/login')
 def login():
-    proxima = url_for('admin.admin')
-    
-    return render_template('login.html', proxima=proxima, login = session['usuario_logado'])
+	try:
+		login = session['usuario_logado']
+	except:
+		session['usuario_logado'] = None
+		login = session['usuario_logado']
+	
+	proxima = url_for('admin.admin')
+		
+	return render_template('login.html', proxima=proxima, login = session['usuario_logado'])
 
 
 @bp.route('/autenticar', methods=['POST', ])
