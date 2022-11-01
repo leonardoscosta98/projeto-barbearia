@@ -115,6 +115,8 @@ def agendamento(datatable,horario):
 def confirmacao(datatable,horario):	
 
 	nome = request.form.get("nome","")
+	nome = nome.replace("'",'')
+	nome = nome.replace('"','')
 	celular = ''.join(filter(lambda i: i if i.isdigit() else None, request.form.get("celular","")))     
 	servicos = str(adicionaServicos(request.form.get("CorteNavalhado",""),request.form.get("CorteTesoura",""),request.form.get("CorteMaqTesoura",""),request.form.get("CorteMaquina",""),request.form.get("AlisamentoCabelo",""),request.form.get("PinturaCabelo",""),request.form.get("PeCabelo",""),request.form.get("Reflexo",""),request.form.get("Barba",""),request.form.get("MarcarBarba",""),request.form.get("PinturaBarba",""),request.form.get("SobrancelhaM",""),request.form.get("SobrancelhaF","") )) 
 	servicos = servicos.replace(',','\n')
