@@ -1,3 +1,4 @@
+from email.policy import default
 from flask import Flask, render_template, redirect, url_for, flash, session
 from .db import execQuery
 from flask import Blueprint
@@ -19,9 +20,11 @@ def index():
 		session['usuario_logado'] = None
 		return render_template("index.html", login = session['usuario_logado'])
 
-@bp.route("/agenda", methods=["POST", "GET"])
-def agenda():
+@bp.route("/agenda", defaults={"dataAnt":""}, methods=["POST", "GET"])
+@bp.route("/agenda/<dataAnt>", methods=["POST", "GET"])
+def agenda(dataAnt):
 	
+
 	Brasil             = pytz.timezone('America/Sao_Paulo')
 	dia_atual 		   = datetime.today()
 	data_formatada_tz  = dia_atual.replace(tzinfo=pytz.UTC)
@@ -38,8 +41,12 @@ def agenda():
 	if search != '':
 		datatable = datetime.strptime(search, '%Y-%m-%d').strftime("%d-%m-%Y")
 	else:
-		search= dia_atual
-		datatable= data_formatada_br.strftime('%d-%m-%Y')
+		if dataAnt != '':
+			search= dataAnt
+			datatable = datetime.strptime(search, '%Y-%m-%d').strftime("%d-%m-%Y")
+		else:
+			search= dia_atual
+			datatable= data_formatada_br.strftime('%d-%m-%Y')
 
 	if (search < dia_atual):	
 		flash('Falha! Data indisponível para agendamento.')
@@ -224,11 +231,11 @@ def confirmacao(datatable,horario):
 
 
 	flash('Horário reservado com sucesso!')
-	return redirect(url_for('admin.agenda'))
+	return redirect(url_for('admin.agenda', dataAnt=datatable))
 
-
-@bp.route("/admin", methods=["POST", "GET"])
-def admin():	
+@bp.route("/admin", defaults={"dataAnt":""}, methods=["POST", "GET"])
+@bp.route("/admin/<dataAnt>", methods=["POST", "GET"])
+def admin(dataAnt):	
 
 	try:
 		login = session['usuario_logado']
@@ -248,12 +255,16 @@ def admin():
 	
 	if search != '':
 		datatable = datetime.strptime(search, '%Y-%m-%d').strftime("%d-%m-%Y")
-		dia_da_semana = retornaDiaSemana(search)
 	else:
-		search= dia_atual
-		dia_da_semana = retornaDiaSemana(search)
-		datatable= data_formatada_br.strftime('%d-%m-%Y')
+		if dataAnt != '':
+			search = datetime.strptime(dataAnt, '%d-%m-%Y').strftime("%Y-%m-%d")		 
+			datatable = datetime.strptime(search, '%Y-%m-%d').strftime("%d-%m-%Y")
+		else:
+			search= dia_atual
+			datatable= data_formatada_br.strftime('%d-%m-%Y')
 		
+
+	dia_da_semana = retornaDiaSemana(search)	
 
 	disponibilidade = execQuery("""
 		select 
@@ -319,18 +330,18 @@ def logout():
 
     return redirect(url_for('admin.index'))
 
-@bp.route('/delete/<id>',methods=['POST', ])
-def delete(id):
+@bp.route('/delete/<id>/<datatable>',methods=['POST', ])
+def delete(id, datatable):
 
 	if 'usuario_logado' not in session or session['usuario_logado'] == None:
 		return redirect(url_for('admin.login', proxima=url_for('admin.admin')))
     
 	execQuery("""delete from agendamento where id = {} """.format(id),onlyExec=True) 
 	
-	return redirect(url_for('admin.admin'))
+	return redirect(url_for('admin.admin', dataAnt= datatable))
 
-@bp.route('/pagamento/<id>',methods=['POST','GET'])
-def pagamento(id):
+@bp.route('/pagamento/<id>/<datatable>',methods=['POST','GET'])
+def pagamento(id,datatable):
 	
 	pagamento = execQuery("""select pagamento from agendamento where id = '{}' """.format(id))
 
@@ -340,4 +351,4 @@ def pagamento(id):
 		execQuery("""UPDATE public.agendamento SET pagamento = True where id = '{}' """.format(id), onlyExec=True)
 
 
-	return redirect(url_for('admin.admin'))
+	return redirect(url_for('admin.admin', dataAnt= datatable))

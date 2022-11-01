@@ -39,18 +39,18 @@ content %}
                 /></a></td>
                 <td style="text-align: center" >
                     {% if disponibilidade.pagamento == None %}
-                    <form action="/pagamento/{{disponibilidade.id}}" method="post">
+                    <form action="/pagamento/{{disponibilidade.id}}/{{datatable}}" method="post">
                         <button type="submit" class="btn btn-danger">Não</button>
                     </form>
                     {% else %}
-                    <form action="/pagamento/{{disponibilidade.id}}" method="post">
+                    <form action="/pagamento/{{disponibilidade.id}}/{{datatable}}" method="post">
                         <button type="submit" class="btn btn-success">Sim</button>
                     </form>
                     {% endif %}
                 </td>
                 <td>{{disponibilidade.servico}}</td>
                 <td>
-                    <form action="/delete/{{disponibilidade.id}}" method="post">
+                    <form action="/delete/{{disponibilidade.id}}/{{datatable}}" method="post">
                         <button type="submit" class="btn btn-danger">Deletar</button>
                     </form>
                 </td>
