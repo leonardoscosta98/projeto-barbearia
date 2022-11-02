@@ -1,12 +1,12 @@
 {% extends "base.html" %} {% block title %}Início{% endblock %} {% block
     content %}
     <div>
-        <div class="row">
-            <div class="col"><h4>Agenda de Horários</h4></div>
-            <form  class="col" action="/agenda" method="post">
-                <div class="row" style="margin-right: 8rem;">
+        <div class="col">
+            <div class="row"><h4>Agenda de Horários</h4></div>
+            <form  class="row" action="/agenda" method="post">
+                <div class="row" >
                     <div class="col"> <input type="date" name="search" value="{{filtro}}"> </div>
-                    <div class="col"><button type="submit" class="btn btn-success">Buscar </button></div>
+                    <div class="col" style="margin-right: 5rem;"><button type="submit" class="btn btn-success">Buscar </button></div>
                 </div>
             </form>
         </div>
