@@ -348,7 +348,7 @@ def agendamentoSemanal(search,dia_atual):
 	elif dia_da_semana == 'Quinta-Feira':
 		data_inicio = dia_atual
 		data_fim    = dia_atual + timedelta(2)
-	elif dia_da_semana == 'sexta-Feira':
+	elif dia_da_semana == 'Sexta-Feira':
 		data_inicio = dia_atual
 		data_fim    = dia_atual + timedelta(1)
 	elif dia_da_semana == 'Sábado':
