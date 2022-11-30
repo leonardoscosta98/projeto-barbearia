@@ -16,7 +16,7 @@
         <div class="col">
           <div class="form-group">
             <label for="nome"><strong>Nome: </strong></label>
-            <input type="text" id="nome" name="nome" class="form-control" required>
+            <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite seu nome" required>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
       <div clas="row">
         <div class="col">
           <div class="form-group">
-            <label for="nome" ><strong>Celular: </strong> Ex.: (21) 98519-1812</label>
+            <label for="celular" ><strong>Celular: </strong> Ex.: (21) 98519-1812</label>
             <input type="text" id="celular" name="celular" class="form-control" placeholder="Digite um número do WhatsApp" maxlength="15"  required>
           </div>
         </div>
@@ -326,13 +326,18 @@
     function ValidarSumit() {
         var myform = document.getElementById("FormDefault");      
         let campo_Celular = document.getElementById("celular");
-        var tamanho = campo_Celular.value;
+        let campo_nome = document.getElementById("nome");
+        var tamanho_nome = campo_nome.value;
+        var tamanho_celular = campo_Celular.value;
         var valor = document.getElementById('totalValue').innerHTML;
         
         if(valor <= 0){
           alert('Nenhum serviço selecionado. Verifique.');
         }
-        else if (tamanho.length != 15){
+        else if (tamanho_nome.length <= 0){
+          alert('Nome Inválido. Verifique.');
+        }
+        else if (tamanho_celular.length != 15){
           alert('Celular Inválido. Verifique.');
         }
         else{
